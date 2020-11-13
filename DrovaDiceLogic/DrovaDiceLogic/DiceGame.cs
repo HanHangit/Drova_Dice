@@ -12,7 +12,7 @@ namespace DrovaDiceLogic
         private DiceGameSettings.DiceGameSettings _diceGameSettings = null;
         public DiceGameSettings.DiceGameSettings DiceGameSettings => _diceGameSettings;
         private Board _currentBoard = new Board();
-        internal Board CurrentBoard => _currentBoard;
+        public Board CurrentBoard => _currentBoard;
 
         public DiceGame(DiceGameSettings.DiceGameSettings gameSettings)
         {
