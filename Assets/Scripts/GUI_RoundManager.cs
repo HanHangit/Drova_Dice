@@ -9,7 +9,7 @@ public class GUI_RoundManager : MonoBehaviour
 {
 
 	[SerializeField]
-	private List<GUI_DiceNumber> _diceNumbers = default;
+	private List<GUI_DiceNumber> _diceNumbers = new List<GUI_DiceNumber>();
 	private void Awake()
 	{
 		RollDices();
@@ -18,7 +18,6 @@ public class GUI_RoundManager : MonoBehaviour
 	public void RollDices()
 	{
 		DiceGame game = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
-
 
 	}
 }
