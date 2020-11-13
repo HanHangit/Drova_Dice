@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using DrovaDiceLogic;
+using DrovaDiceLogic.DiceGameSettings;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,4 +24,10 @@ public class GameManager : MonoBehaviour
             return _instance;
 	    }
     }
+
+    private void Start()
+    {
+
+    }
+
 }
