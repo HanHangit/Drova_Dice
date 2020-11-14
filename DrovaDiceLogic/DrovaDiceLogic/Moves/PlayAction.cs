@@ -14,12 +14,22 @@ namespace DrovaDiceLogic.Moves
 
         internal override bool ValidateGameAction(DiceGame game)
         {
-            throw new NotImplementedException();
+            return Dice.HasModifier(DiceModifier.Selected);
         }
 
         internal override void PlayGameAction(DiceGame game)
         {
-            throw new NotImplementedException();
+            if (ValidateGameAction(game))
+            {
+                game.CurrentBoard.CurrentPlayer.PlayerStats.ChangeAmmo(-1);
+                foreach (var otherPlayer in game.CurrentBoard.Players)
+                {
+                    if (otherPlayer.PlayerStats.ID != game.CurrentBoard.CurrentPlayer.PlayerStats.ID)
+                    {
+                        otherPlayer.PlayerStats.ChangeHealth(-1);
+                    }
+                }
+            }
         }
     }
 }

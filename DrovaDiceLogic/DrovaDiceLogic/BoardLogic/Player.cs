@@ -6,10 +6,17 @@ namespace DrovaDiceLogic.BoardLogic
 {
     public class Player
     {
-        private int _id;
-        public int ID => _id;
-        private int _health = 0;
-        public int Health => _health;
-        private int _ammo = 0;
+        private PlayerSettings _playerSettings = null;
+        public PlayerSettings PlayerSettings => _playerSettings;
+        private PlayerStats _playerStats = null;
+        public PlayerStats PlayerStats => _playerStats;
+
+        internal Player(PlayerSettings settings, PlayerStats stats)
+        {
+            _playerStats = stats;
+            _playerSettings = settings;
+        }
+
+
     }
 }

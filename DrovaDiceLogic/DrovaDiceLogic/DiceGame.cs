@@ -8,26 +8,23 @@ namespace DrovaDiceLogic
 {
     public class DiceGame
     {
-        private ARound _currentRound = null;
-        public ARound CurrentRound => _currentRound;
         private DiceGameSettings.DiceGameSettings _diceGameSettings = null;
         public DiceGameSettings.DiceGameSettings DiceGameSettings => _diceGameSettings;
-        private Board _currentBoard = new Board();
+        private Board _currentBoard = null;
         public Board CurrentBoard => _currentBoard;
 
         public delegate void ActionEndedDelegate(GameMoveEndedEventArgs args);
-
         public event ActionEndedDelegate ActionEndedEvent;
 
         public DiceGame(DiceGameSettings.DiceGameSettings gameSettings)
         {
+            _currentBoard = new Board(gameSettings);
             Init(gameSettings);
         }
 
         public void Init(DiceGameSettings.DiceGameSettings gameSettings)
         {
             _diceGameSettings = gameSettings;
-            _currentBoard.InitSettings(gameSettings);
         }
 
         public bool CanBePlayed(AGameMove action)
@@ -50,12 +47,12 @@ namespace DrovaDiceLogic
         public struct GameMoveEndedEventArgs
         {
             public DiceGame DiceGame;
-            public AGameMove Action;
+            public AGameMove GameMove;
 
-            public GameMoveEndedEventArgs(DiceGame diceGame, AGameMove action)
+            public GameMoveEndedEventArgs(DiceGame diceGame, AGameMove gameMove)
             {
                 DiceGame = diceGame;
-                Action = action;
+                GameMove = gameMove;
             }
         }
     }

@@ -13,7 +13,8 @@ namespace DrovaDiceLogic
 
         internal override void PlayGameAction(DiceGame game)
         {
-            throw new NotImplementedException();
+            var board = game.CurrentBoard;
+            board.EndRound();
         }
     }
 }

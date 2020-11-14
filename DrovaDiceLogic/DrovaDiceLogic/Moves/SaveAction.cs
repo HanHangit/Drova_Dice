@@ -35,6 +35,7 @@ namespace DrovaDiceLogic.Moves
                 var dice = board.GetDice(Dice.Id);
 
                 dice.AddModifier(DiceModifier.Saved);
+                dice.RemoveModifier(DiceModifier.CanBeRerolled);
             }
         }
     }

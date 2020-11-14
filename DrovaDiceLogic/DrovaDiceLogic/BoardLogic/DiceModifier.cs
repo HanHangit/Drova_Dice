@@ -8,6 +8,7 @@ namespace DrovaDiceLogic.BoardLogic
     {
         Selected,
         Used,
-        Saved
+        Saved,
+        CanBeRerolled
     }
 }

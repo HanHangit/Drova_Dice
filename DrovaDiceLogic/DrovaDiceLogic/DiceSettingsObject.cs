@@ -10,7 +10,7 @@ namespace DrovaDiceLogic
         private DiceGameSettings.DiceGameSettings _gameSettings = null;
         public DiceGameSettings.DiceGameSettings GameSettings => _gameSettings;
 
-        public virtual void InitSettings(DiceGameSettings.DiceGameSettings gameSettings)
+        internal DiceSettingsObject(DiceGameSettings.DiceGameSettings gameSettings)
         {
             _gameSettings = gameSettings;
         }

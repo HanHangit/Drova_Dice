@@ -26,6 +26,7 @@ namespace DrovaDiceLogic.BoardLogic
             _id = id;
             _number = number;
             _diceSettings = settings;
+            _modifiers.Add(DiceModifier.CanBeRerolled);
         }
 
         public bool HasModifier(DiceModifier modifier) => _modifiers.Contains(modifier);
