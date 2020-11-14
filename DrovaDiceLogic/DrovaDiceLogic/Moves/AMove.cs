@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DrovaDiceLogic.Moves;
 
 namespace DrovaDiceLogic
 {
-    public abstract class AMove
+    public abstract class AMove : AGameMove
     {
 
     }

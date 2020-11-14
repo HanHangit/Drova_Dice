@@ -34,7 +34,7 @@ namespace DrovaDiceLogic.BoardLogic
 
         internal void RemoveModifier(DiceModifier modifier) => _modifiers.Remove(modifier);
 
-        public void Reroll()
+        internal void Reroll()
         {
             _number = _diceSettings.RollNewNumber();
         }

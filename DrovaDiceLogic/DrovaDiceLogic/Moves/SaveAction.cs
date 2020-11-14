@@ -14,12 +14,28 @@ namespace DrovaDiceLogic.Moves
 
         internal override bool ValidateGameAction(DiceGame game)
         {
-            throw new NotImplementedException();
+            var board = game.CurrentBoard;
+            var dice = board.GetDice(Dice.Id);
+
+            if (!dice.HasModifier(DiceModifier.Saved))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         internal override void PlayGameAction(DiceGame game)
         {
-            throw new NotImplementedException();
+            if (ValidateGameAction(game))
+            {
+                var board = game.CurrentBoard;
+                var dice = board.GetDice(Dice.Id);
+
+                dice.AddModifier(DiceModifier.Saved);
+            }
         }
     }
 }

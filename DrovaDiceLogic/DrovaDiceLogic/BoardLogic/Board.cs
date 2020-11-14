@@ -19,14 +19,25 @@ namespace DrovaDiceLogic.BoardLogic
                 AddDice(new Dice(i, i, gameSettings.DiceSettings));
             }
 
-            Roll();
+            Reroll();
         }
 
-        internal void Roll()
+        internal void Reroll()
         {
             foreach (var dice in _dices)
             {
                 dice.Reroll();
+            }
+        }
+
+        internal void RerollUnsavedDices()
+        {
+            foreach (var dice in _dices)
+            {
+                if (!dice.HasModifier(DiceModifier.Saved))
+                {
+                    dice.Reroll();
+                }
             }
         }
 

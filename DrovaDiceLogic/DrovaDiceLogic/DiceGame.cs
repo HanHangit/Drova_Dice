@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.DiceGameSettings;
+using DrovaDiceLogic.Moves;
 
 namespace DrovaDiceLogic
 {
@@ -14,7 +15,7 @@ namespace DrovaDiceLogic
         private Board _currentBoard = new Board();
         public Board CurrentBoard => _currentBoard;
 
-        public delegate void ActionEndedDelegate(ActionEndedEventArgs args);
+        public delegate void ActionEndedDelegate(GameMoveEndedEventArgs args);
 
         public event ActionEndedDelegate ActionEndedEvent;
 
@@ -29,39 +30,29 @@ namespace DrovaDiceLogic
             _currentBoard.InitSettings(gameSettings);
         }
 
-        public bool CanBePlayed(ARound round)
-        {
-            return true;
-        }
-
-        public bool CanBePlayed(AMove move)
-        {
-            return true;
-        }
-
-        public bool CanBePlayed(AAction action)
+        public bool CanBePlayed(AGameMove action)
         {
             return action.ValidateGameAction(this);
         }
 
-        public bool Play(AAction action)
+        public bool Play(AGameMove action)
         {
             if (action.ValidateGameAction(this))
             {
                 action.PlayGameAction(this);
-                ActionEndedEvent?.Invoke(new ActionEndedEventArgs(this, action));
+                ActionEndedEvent?.Invoke(new GameMoveEndedEventArgs(this, action));
                 return true;
             }
 
             return false;
         }
 
-        public struct ActionEndedEventArgs
+        public struct GameMoveEndedEventArgs
         {
             public DiceGame DiceGame;
-            public AAction Action;
+            public AGameMove Action;
 
-            public ActionEndedEventArgs(DiceGame diceGame, AAction action)
+            public GameMoveEndedEventArgs(DiceGame diceGame, AGameMove action)
             {
                 DiceGame = diceGame;
                 Action = action;
