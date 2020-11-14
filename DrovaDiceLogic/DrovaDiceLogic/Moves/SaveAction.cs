@@ -34,6 +34,7 @@ namespace DrovaDiceLogic.Moves
                 foreach (var dice in game.CurrentBoard.Dices.FindAll(d => d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Saved)))
                 {
                     game.CurrentBoard.GetDice(dice.Id).AddModifier(DiceModifier.Saved);
+                    game.CurrentBoard.GetDice(dice.Id).RemoveModifier(DiceModifier.CanBeRerolled);
                 }
             }
         }
