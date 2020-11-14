@@ -14,6 +14,10 @@ namespace DrovaDiceLogic
         private Board _currentBoard = new Board();
         public Board CurrentBoard => _currentBoard;
 
+        public delegate void ActionEndedDelegate(ActionEndedEventArgs args);
+
+        public event ActionEndedDelegate ActionEndedEvent;
+
         public DiceGame(DiceGameSettings.DiceGameSettings gameSettings)
         {
             Init(gameSettings);
@@ -45,10 +49,23 @@ namespace DrovaDiceLogic
             if (action.ValidateGameAction(this))
             {
                 action.PlayGameAction(this);
+                ActionEndedEvent?.Invoke(new ActionEndedEventArgs(this, action));
                 return true;
             }
 
             return false;
+        }
+
+        public struct ActionEndedEventArgs
+        {
+            public DiceGame DiceGame;
+            public AAction Action;
+
+            public ActionEndedEventArgs(DiceGame diceGame, AAction action)
+            {
+                DiceGame = diceGame;
+                Action = action;
+            }
         }
     }
 }
