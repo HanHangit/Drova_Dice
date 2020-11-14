@@ -13,7 +13,7 @@ namespace DrovaDiceLogic
         private Board _currentBoard = null;
         public Board CurrentBoard => _currentBoard;
 
-        public delegate void ActionEndedDelegate(GameMoveEndedEventArgs args);
+        public delegate void ActionEndedDelegate(GameTurnEndedEventArgs args);
         public event ActionEndedDelegate ActionEndedEvent;
 
         public DiceGame(DiceGameSettings.DiceGameSettings gameSettings)
@@ -27,32 +27,32 @@ namespace DrovaDiceLogic
             _diceGameSettings = gameSettings;
         }
 
-        public bool CanBePlayed(AGameMove action)
+        public bool CanBePlayed(AGameTurn action)
         {
             return action.ValidateGameAction(this);
         }
 
-        public bool Play(AGameMove action)
+        public bool Play(AGameTurn action)
         {
             if (action.ValidateGameAction(this))
             {
                 action.PlayGameAction(this);
-                ActionEndedEvent?.Invoke(new GameMoveEndedEventArgs(this, action));
+                ActionEndedEvent?.Invoke(new GameTurnEndedEventArgs(this, action));
                 return true;
             }
 
             return false;
         }
 
-        public struct GameMoveEndedEventArgs
+        public struct GameTurnEndedEventArgs
         {
             public DiceGame DiceGame;
-            public AGameMove GameMove;
+            public AGameTurn GameTurn;
 
-            public GameMoveEndedEventArgs(DiceGame diceGame, AGameMove gameMove)
+            public GameTurnEndedEventArgs(DiceGame diceGame, AGameTurn gameTurn)
             {
                 DiceGame = diceGame;
-                GameMove = gameMove;
+                GameTurn = gameTurn;
             }
         }
     }

@@ -6,7 +6,7 @@ using DrovaDiceLogic.Moves;
 
 namespace DrovaDiceLogic
 {
-    public abstract class AAction : AGameMove
+    public abstract class AAction : AGameTurn
     {
         private Dice _dice;
         public Dice Dice => _dice;

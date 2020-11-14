@@ -5,7 +5,7 @@ using DrovaDiceLogic.Moves;
 
 namespace DrovaDiceLogic
 {
-    public abstract class AMove : AGameMove
+    public abstract class ATurn : AGameTurn
     {
 
     }

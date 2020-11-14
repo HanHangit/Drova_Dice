@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DrovaDiceLogic.Moves
 {
-    public abstract class AGameMove
+    public abstract class AGameTurn
     {
         internal abstract bool ValidateGameAction(DiceGame game);
         internal abstract void PlayGameAction(DiceGame game);

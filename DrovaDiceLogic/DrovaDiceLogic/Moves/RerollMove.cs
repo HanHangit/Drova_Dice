@@ -6,7 +6,7 @@ using DrovaDiceLogic.BoardLogic;
 
 namespace DrovaDiceLogic
 {
-    public class RerollMove : AMove
+    public class RerollTurn : ATurn
     {
         internal override bool ValidateGameAction(DiceGame game)
         {
