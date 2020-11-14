@@ -39,6 +39,9 @@ namespace Tests
             diceGame.Play(playAction);
 
             Assert.IsTrue(diceGame.CurrentBoard.Dices.Any(d => d.HasModifier(DiceModifier.Saved)));
+            Assert.IsTrue(diceGame.CurrentBoard.Dices.Any(d => !d.HasModifier(DiceModifier.CanBeRerolled)));
+
+            diceGame.Play(new RerollTurn());
         }
     }
 }

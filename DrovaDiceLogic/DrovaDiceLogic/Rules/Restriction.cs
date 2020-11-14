@@ -7,26 +7,25 @@ using DrovaDiceLogic.Moves;
 
 namespace DrovaDiceLogic.Rules
 {
-    internal class Restriction
+    public class Restriction
     {
         private List<Dice> _neededDices = new List<Dice>();
+        public List<Dice> NeededDices => _neededDices;
 
-        internal bool CheckGameTurn(DiceGame game, SelectAction gameTurn)
+        internal Restriction(List<Dice> ruleDices)
         {
-            if (!IsPossible(game))
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            _neededDices = ruleDices;
+        }
+
+        public bool CheckGameTurn(DiceGame game)
+        {
+            return IsPossible(game);
         }
 
         private bool IsPossible(DiceGame game)
         {
             bool result = true;
-            var dices = game.CurrentBoard.Dices;
+            var dices = game.CurrentBoard.GetSelectedDices();
 
             foreach (var dice in _neededDices)
             {
@@ -42,7 +41,7 @@ namespace DrovaDiceLogic.Rules
                 }
             }
 
-            return result;
+            return result && !dices.Any();
         }
     }
 }
