@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Net.Mime;
 using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.Moves;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
 	public Player _currentPlayer = default;
+	[SerializeField]
+	private Image _feedbackObj = default;
 
 	[SerializeField]
 	private List<GUI_PlayerBhvr> _bhvrs = new List<GUI_PlayerBhvr>();
@@ -16,7 +22,26 @@ public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 	public void Init(Player player)
 	{
 		_currentPlayer = player;
+		GameManager.Instance.GetCurrentGame().CurrentBoard.BoardRoundEndedEvent += BoardRoundEndedListener;
 		InitBhvrs(player);
+		ActivateFeedbackImage(GameManager.Instance.GetCurrentGame().CurrentBoard.CurrentPlayer);
+	}
+
+	private void ActivateFeedbackImage(Player activePlayer)
+	{
+		if (activePlayer == _currentPlayer)
+		{
+			_feedbackObj.enabled = true;;
+		}
+		else
+		{
+			_feedbackObj.enabled = false;
+		}
+	}
+
+	private void BoardRoundEndedListener(Board.RoundEndedEventArgs args)
+	{
+		ActivateFeedbackImage(args.NewPlayer);
 	}
 
 	private void InitBhvrs(Player player)
