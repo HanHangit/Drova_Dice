@@ -27,7 +27,7 @@ namespace Tests
         }
 
         [TestMethod]
-        public void PlayAction_ChangeHealth()
+        public void SaveAction_SavedDices()
         {
             var diceGame = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
             var player = diceGame.CurrentBoard.Players.Find(p => p.PlayerStats.ID != diceGame.CurrentBoard.CurrentPlayer.PlayerStats.ID);
