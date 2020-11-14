@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DrovaDiceLogic.BoardLogic
 {
-    public class Dice
+    public class Dice : ICloneable
     {
         private int _id = 0;
         public int Id => _id;
@@ -19,6 +19,11 @@ namespace DrovaDiceLogic.BoardLogic
         public Dice(int id)
         {
             _id = id;
+        }
+
+        internal Dice(int id, int number)
+        {
+            _number = number;
         }
 
         internal Dice(int id, int number, DiceSettings settings)
@@ -38,6 +43,21 @@ namespace DrovaDiceLogic.BoardLogic
         internal void Reroll()
         {
             _number = _diceSettings.RollNewNumber();
+        }
+
+        public object Clone()
+        {
+            HashSet<DiceModifier> modifiers = new HashSet<DiceModifier>();
+            foreach (var diceModifier in _modifiers)
+            {
+                modifiers.Add(diceModifier);
+            }
+            return new Dice(_id)
+            {
+                _number = _number,
+                _diceSettings = _diceSettings,
+                _modifiers = modifiers
+            };
         }
     }
 }

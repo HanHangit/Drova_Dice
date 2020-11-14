@@ -8,7 +8,21 @@ namespace DrovaDiceLogic.BoardLogic
     public class Board : DiceSettingsObject
     {
         private List<Dice> _dices = new List<Dice>();
-        public List<Dice> Dices => _dices;
+
+        public List<Dice> Dices
+        {
+            get
+            {
+                var resultList = new List<Dice>();
+
+                foreach (var dice in _dices)
+                {
+                    resultList.Add(dice.Clone() as Dice);
+                }
+
+                return resultList;
+            }
+        }
         private List<Player> _players = new List<Player>();
         public List<Player> Players => _players;
         private Player _currentPlayer = null;
@@ -76,9 +90,14 @@ namespace DrovaDiceLogic.BoardLogic
             _dices.Clear();
         }
 
-        public Dice GetDice(int id)
+        internal Dice GetDice(int id)
         {
             return _dices.Find(d => d.Id == id);
+        }
+
+        public List<Dice> GetSelectedDices()
+        {
+            return null;
         }
 
         public Player GetPlayer(int id)
