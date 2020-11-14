@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DrovaDiceLogic;
 using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.Moves;
 using TMPro;
@@ -46,7 +47,24 @@ public class GUI_DiceNumber : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		Debug.Log("OnClick");
+		if (CurrentDice.HasModifier(DiceModifier.Selected))
+		{
+			ExecuteAction(new UnselectAction(CurrentDice));
+		}
+		else
+		{
+			ExecuteAction(new SelectAction(CurrentDice));
+		}
 		ClickedDiceEvent.InvokeEvent(this);
+	}
+
+	private void ExecuteAction(AAction action)
+	{
+		var game = GameManager.Instance.GetCurrentGame();
+		if (game.CanBePlayed(action))
+		{
+			Debug.Log("Action Select");
+			game.Play(action);
+		}
 	}
 }

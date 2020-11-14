@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+﻿using System.Collections.Generic;
 using DrovaDiceLogic;
 using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.DiceGameSettings;
@@ -13,7 +10,16 @@ public class GUI_RoundManager : MonoBehaviour
 	[SerializeField]
 	private GUI_DiceNumber _diceNumberPrefab = default;
 	[SerializeField]
-	private Transform _anchor = default;
+	private Transform _diceAnchor = default;
+	[SerializeField]
+	private GUI_Player _playerPrefab = default;
+	[SerializeField]
+	private List<Transform> _playerAnchors = default;
+
+
+	[SerializeField]
+	private List<GUI_Player> _playersList = new List<GUI_Player>();
+
 	[SerializeField]
 	private List<GUI_DiceNumber> _diceNumbers = new List<GUI_DiceNumber>();
 
@@ -22,12 +28,28 @@ public class GUI_RoundManager : MonoBehaviour
 	{
 		GameManager.Instance.InitGame(new DiceGame(DiceGameSettings.CreateDefaultGameSettings()));
 		GameManager.Instance.GetCurrentGame().ActionEndedEvent += ActionEndedListener;
+		CreatePlayer();
 		RollDices();
 	}
 
-	private void ActionEndedListener(DiceGame.GameMoveEndedEventArgs args)
+	private void CreatePlayer()
 	{
-		if (args.Action is AAction action)
+		var players = GameManager.Instance.GetCurrentGame().CurrentBoard.Players;
+		for (var i = 0; i < players.Count; i++)
+		{
+			var item = players[i];
+			if (i <= _playerAnchors.Count - 1)
+			{
+				var instance = Instantiate(_playerPrefab, _playerAnchors[i]);
+				instance.Init(item);
+				_playersList.Add(instance);
+			}
+		}
+	}
+
+	private void ActionEndedListener(DiceGame.GameTurnEndedEventArgs args)
+	{
+		if (args.GameTurn is AAction action)
 		{
 			if (action is SelectAction)
 			{
@@ -55,10 +77,13 @@ public class GUI_RoundManager : MonoBehaviour
 		Debug.Log("RollDices");
 		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.Dices)
 		{
-			GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _anchor);
-			_diceNumbers.Add(instance);
-			instance.InitDice(item);
-			SetEvents(instance);
+			if (!item.HasModifier(DiceModifier.Saved))
+			{
+				GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _diceAnchor);
+				_diceNumbers.Add(instance);
+				instance.InitDice(item);
+				SetEvents(instance);
+			}
 		}
 	}
 
@@ -81,23 +106,8 @@ public class GUI_RoundManager : MonoBehaviour
 
 	private void ClickedDiceButtonListener(GUI_DiceNumber arg0)
 	{
-		if (arg0.CurrentDice.HasModifier(DiceModifier.Selected))
-		{
-			ExecuteAction(new UnselectAction(arg0.CurrentDice));
-		}
-		else
-		{
-			ExecuteAction(new SelectAction(arg0.CurrentDice));
-		}
+
 	}
 
-	private void ExecuteAction(AAction action)
-	{
-		var game = GameManager.Instance.GetCurrentGame();
-		if (game.CanBePlayed(action))
-		{
-			Debug.Log("Action Select");
-			game.Play(action);
-		}
-	}
+
 }
