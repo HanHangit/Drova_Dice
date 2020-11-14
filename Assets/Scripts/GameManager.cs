@@ -24,10 +24,4 @@ public class GameManager : MonoBehaviour
             return _instance;
 	    }
     }
-
-    private void Start()
-    {
-
-    }
-
 }
