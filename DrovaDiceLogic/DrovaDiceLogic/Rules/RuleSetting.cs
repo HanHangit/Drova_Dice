@@ -4,8 +4,15 @@ using System.Text;
 
 namespace DrovaDiceLogic.Rules
 {
-    public class RuleSetting
+    public class RuleSettings
     {
+        private List<ActionRule> _actionRules = new List<ActionRule>();
 
+        public RuleSettings(List<ActionRule> actionRules)
+        {
+            _actionRules = actionRules;
+        }
+
+        public List<ActionRule> ActionRules => _actionRules;
     }
 }

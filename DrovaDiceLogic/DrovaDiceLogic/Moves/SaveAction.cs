@@ -35,6 +35,7 @@ namespace DrovaDiceLogic.Moves
                 {
                     game.CurrentBoard.GetDice(dice.Id).AddModifier(DiceModifier.Saved);
                     game.CurrentBoard.GetDice(dice.Id).RemoveModifier(DiceModifier.CanBeRerolled);
+                    game.CurrentBoard.GetDice(dice.Id).RemoveModifier(DiceModifier.Selected);
                 }
             }
         }

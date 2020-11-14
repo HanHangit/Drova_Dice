@@ -27,6 +27,7 @@ namespace DrovaDiceLogic.BoardLogic
         public List<Player> Players => _players;
         private Player _currentPlayer = null;
         public Player CurrentPlayer => _currentPlayer;
+        public List<Player> EnemyPlayers => _players.FindAll(p => p.PlayerStats.ID != _currentPlayer.PlayerStats.ID);
 
         public delegate void PlayerRoundEndedDelegate(RoundEndedEventArgs args);
 
@@ -35,9 +36,15 @@ namespace DrovaDiceLogic.BoardLogic
         internal Board(DiceGameSettings.DiceGameSettings gameSettings) : base(gameSettings)
         {
             InitPlayer();
-            for (int i = 0; i < gameSettings.StartSettings.NumDices; ++i)
+            InitNewDices();
+        }
+
+        private void InitNewDices()
+        {
+            _dices.Clear();
+            for (int i = 0; i < GameSettings.StartSettings.NumDices; ++i)
             {
-                AddDice(new Dice(i, i, gameSettings.DiceSettings));
+                AddDice(new Dice(i, i, GameSettings.DiceSettings));
             }
 
             Reroll();
@@ -77,6 +84,7 @@ namespace DrovaDiceLogic.BoardLogic
             int oldID = _currentPlayer.PlayerStats.ID;
             _currentPlayer = _players.Find(p => p.PlayerStats.ID != _currentPlayer.PlayerStats.ID);
             var oldPlayer = _players.Find(p => p.PlayerStats.ID == oldID);
+            InitNewDices();
             BoardRoundEndedEvent?.Invoke(new RoundEndedEventArgs(oldPlayer, _currentPlayer));
         }
 
@@ -97,7 +105,12 @@ namespace DrovaDiceLogic.BoardLogic
 
         public List<Dice> GetSelectedDices()
         {
-            return null;
+            return Dices.FindAll(d => d.HasModifier(DiceModifier.Selected));
+        }
+
+        public List<Dice> GetSavedDices()
+        {
+            return Dices.FindAll(d => d.HasModifier(DiceModifier.Saved));
         }
 
         public Player GetPlayer(int id)
