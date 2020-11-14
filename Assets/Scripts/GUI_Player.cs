@@ -22,9 +22,14 @@ public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 	public void Init(Player player)
 	{
 		_currentPlayer = player;
-		GameManager.Instance.GetCurrentGame().CurrentBoard.BoardRoundEndedEvent += BoardRoundEndedListener;
+
 		InitBhvrs(player);
 		ActivateFeedbackImage(GameManager.Instance.GetCurrentGame().CurrentBoard.CurrentPlayer);
+	}
+
+	private void Awake()
+	{
+		GameManager.Instance.GetCurrentGame().CurrentBoard.BoardRoundEndedEvent += BoardRoundEndedListener;
 	}
 
 	private void ActivateFeedbackImage(Player activePlayer)
@@ -37,10 +42,12 @@ public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 		{
 			_feedbackObj.enabled = false;
 		}
+
 	}
 
 	private void BoardRoundEndedListener(Board.RoundEndedEventArgs args)
 	{
+		Debug.Log("RoundEnd");
 		ActivateFeedbackImage(args.NewPlayer);
 	}
 
@@ -59,12 +66,7 @@ public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		var game = GameManager.Instance.GetCurrentGame();
-		var action = new PlayAction();
-		if(game.CanBePlayed(action))
-		{
-			game.Play(action);
-		}
+		GameManager.Instance.ExecuteAction(new PlayAction());
 	}
 
 	public void OnPointerExit(PointerEventData eventData)

@@ -18,10 +18,6 @@ public class GUI_DiceNumber : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 	private Dice _currentDice = default;
 	public Dice CurrentDice => _currentDice;
 
-	public GenericEvent<GUI_DiceNumber> ClickedDiceEvent = new GenericEvent<GUI_DiceNumber>();
-	public GenericEvent<GUI_DiceNumber> HoveredStartDiceEvent = new GenericEvent<GUI_DiceNumber>();
-	public GenericEvent<GUI_DiceNumber> HoveredEndDiceEvent = new GenericEvent<GUI_DiceNumber>();
-
 	public void InitDice(Dice dice)
 	{
 		_currentDice = dice;
@@ -35,36 +31,21 @@ public class GUI_DiceNumber : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		var action = new SelectAction(_currentDice);
-		HoveredStartDiceEvent.InvokeEvent(this);
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		Debug.Log("OnExit");
-		HoveredEndDiceEvent.InvokeEvent(this);
 	}
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
 		if (CurrentDice.HasModifier(DiceModifier.Selected))
 		{
-			ExecuteAction(new UnselectAction(CurrentDice));
+			GameManager.Instance.ExecuteAction(new UnselectAction(CurrentDice));
 		}
 		else
 		{
-			ExecuteAction(new SelectAction(CurrentDice));
-		}
-		ClickedDiceEvent.InvokeEvent(this);
-	}
-
-	private void ExecuteAction(AAction action)
-	{
-		var game = GameManager.Instance.GetCurrentGame();
-		if (game.CanBePlayed(action))
-		{
-			Debug.Log("Action Select");
-			game.Play(action);
+			GameManager.Instance.ExecuteAction(new SelectAction(CurrentDice));
 		}
 	}
 }

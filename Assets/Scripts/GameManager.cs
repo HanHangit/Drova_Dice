@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using DrovaDiceLogic;
 using DrovaDiceLogic.DiceGameSettings;
+using DrovaDiceLogic.Moves;
 using UnityEditor;
 using UnityEngine;
 
@@ -34,4 +35,17 @@ public class GameManager : MonoBehaviour
     {
 	    _currentGame = diceGame;
     }
+
+    public void ExecuteAction(AGameTurn gameTurn)
+    {
+	    if (_currentGame.CanBePlayed(gameTurn))
+	    {
+		    _currentGame.Play(gameTurn);
+	    }
+	    else
+	    {
+            Debug.LogWarning("Can not play gameTurn " + gameTurn.GetType());
+	    }
+    }
+
 }

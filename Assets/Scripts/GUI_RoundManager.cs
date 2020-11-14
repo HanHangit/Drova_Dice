@@ -55,7 +55,6 @@ public class GUI_RoundManager : MonoBehaviour
 			{
 
 			}
-
 		}
 
 		CleanBoard();
@@ -74,7 +73,6 @@ public class GUI_RoundManager : MonoBehaviour
 
 	public void RollDices()
 	{
-		Debug.Log("RollDices");
 		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.Dices)
 		{
 			if (!item.HasModifier(DiceModifier.Saved))
@@ -82,32 +80,7 @@ public class GUI_RoundManager : MonoBehaviour
 				GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _diceAnchor);
 				_diceNumbers.Add(instance);
 				instance.InitDice(item);
-				SetEvents(instance);
 			}
 		}
 	}
-
-	private void SetEvents(GUI_DiceNumber dice)
-	{
-		dice.ClickedDiceEvent.AddEventListener(ClickedDiceButtonListener);
-		dice.HoveredStartDiceEvent.AddEventListener(HoverStartDiceButtonListener);
-		dice.HoveredEndDiceEvent.AddEventListener(HoverEndDiceButtonListener);
-	}
-
-	private void HoverEndDiceButtonListener(GUI_DiceNumber arg0)
-	{
-	
-	}
-
-	private void HoverStartDiceButtonListener(GUI_DiceNumber arg0)
-	{
-
-	}
-
-	private void ClickedDiceButtonListener(GUI_DiceNumber arg0)
-	{
-
-	}
-
-
 }

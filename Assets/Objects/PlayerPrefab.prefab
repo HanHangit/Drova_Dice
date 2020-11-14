@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &196493667669570299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603401481683762118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dccc13067db549d4fa26d5fa4722cf1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _curentAmmoText: {fileID: 449423606062769286}
 --- !u!1 &1357858433005414907
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 0.8679245, g: 0.24973297, b: 0.24973297, a: 0.392}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -88,22 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d59a09de90b65049afd0e9ed9e8df47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _feedbackObj: {fileID: 1632754510201909303}
   _bhvrs:
   - {fileID: 319704733053920402}
   - {fileID: 196493667669570299}
---- !u!114 &196493667669570299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 603401481683762118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dccc13067db549d4fa26d5fa4722cf1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _curentAmmoText: {fileID: 449423606062769286}
 --- !u!114 &319704733053920402
 MonoBehaviour:
   m_ObjectHideFlags: 0
