@@ -13,9 +13,9 @@ namespace DrovaDiceLogic.BoardLogic
         private int _ammo = 0;
         public int Ammo => _ammo;
         private int _maxHealth = 0;
-        private int MaxHealth => _maxHealth;
+        public int MaxHealth => _maxHealth;
         private int _maxAmmo = 0;
-        public int MaxAmmoe => _maxAmmo;
+        public int MaxAmmo => _maxAmmo;
 
         public delegate void PlayerHealthChangedDelegate(int oldHealth, int newHealth);
         public delegate void PlayerAmmoChangedDelegate(int oldAmmo, int newAmmo);
@@ -25,8 +25,8 @@ namespace DrovaDiceLogic.BoardLogic
 
         internal PlayerStats(int id, int startHealth, int startAmmo, DiceGameSettings.DiceGameSettings settings)
         {
-            _maxHealth = settings.PlayerSettings.MaxHealth;
-            _maxAmmo = settings.PlayerSettings.MaxAmmo;
+            _maxHealth = settings.PlayerPlayerSettings.MaxHealth;
+            _maxAmmo = settings.PlayerPlayerSettings.MaxAmmo;
             _id = id;
             _health = startHealth;
             _ammo = startAmmo;

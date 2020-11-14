@@ -11,13 +11,14 @@ namespace DrovaDiceLogic.DiceGameSettings
         public RoundStartSettings StartSettings => _startSettings;
         private DiceSettings _diceSettings = null;
         public DiceSettings DiceSettings => _diceSettings;
-        private PlayerSettings _playerSettings = null;
-        public PlayerSettings PlayerSettings => _playerSettings;
+        private PlayerSettings _playerPlayerSettings = null;
+        public PlayerSettings PlayerPlayerSettings => _playerPlayerSettings;
 
-        public DiceGameSettings(RoundStartSettings roundStartSettings, DiceSettings diceSettings, PlayerSettings settings)
+        public DiceGameSettings(RoundStartSettings roundStartSettings, DiceSettings diceSettings, PlayerSettings playerSettings)
         {
             _startSettings = roundStartSettings;
             _diceSettings = diceSettings;
+            _playerPlayerSettings = playerSettings;
         }
 
         public static DiceGameSettings CreateDefaultGameSettings()

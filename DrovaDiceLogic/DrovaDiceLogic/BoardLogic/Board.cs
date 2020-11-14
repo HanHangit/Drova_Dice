@@ -20,6 +20,7 @@ namespace DrovaDiceLogic.BoardLogic
 
         internal Board(DiceGameSettings.DiceGameSettings gameSettings) : base(gameSettings)
         {
+            InitPlayer();
             for (int i = 0; i < gameSettings.StartSettings.NumDices; ++i)
             {
                 AddDice(new Dice(i, i, gameSettings.DiceSettings));
@@ -32,8 +33,10 @@ namespace DrovaDiceLogic.BoardLogic
         {
             for (int i = 0; i < GameSettings.StartSettings.NumPlayers; i++)
             {
-                _players.Add(new Player(GameSettings.PlayerSettings, new PlayerStats(i, GameSettings.PlayerSettings.MaxHealth, GameSettings.PlayerSettings.MaxAmmo, GameSettings)));
+                _players.Add(new Player(GameSettings.PlayerPlayerSettings, new PlayerStats(i, GameSettings.PlayerPlayerSettings.MaxHealth, GameSettings.PlayerPlayerSettings.MaxAmmo, GameSettings)));
             }
+
+            _currentPlayer = _players[0];
         }
 
         internal void Reroll()
