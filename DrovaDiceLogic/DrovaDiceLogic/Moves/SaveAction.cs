@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DrovaDiceLogic.BoardLogic;
 
@@ -7,7 +8,7 @@ namespace DrovaDiceLogic.Moves
 {
     public class SaveAction : AAction
     {
-        public SaveAction(Dice dice) : base(dice)
+        public SaveAction() : base(null)
         {
 
         }
@@ -15,9 +16,8 @@ namespace DrovaDiceLogic.Moves
         internal override bool ValidateGameAction(DiceGame game)
         {
             var board = game.CurrentBoard;
-            var dice = board.GetDice(Dice.Id);
 
-            if (!dice.HasModifier(DiceModifier.Saved))
+            if (board.Dices.Any(d => (d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Saved))))
             {
                 return true;
             }
@@ -31,11 +31,10 @@ namespace DrovaDiceLogic.Moves
         {
             if (ValidateGameAction(game))
             {
-                var board = game.CurrentBoard;
-                var dice = board.GetDice(Dice.Id);
-
-                dice.AddModifier(DiceModifier.Saved);
-                dice.RemoveModifier(DiceModifier.CanBeRerolled);
+                foreach (var dice in game.CurrentBoard.Dices.FindAll(d => d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Saved)))
+                {
+                    game.CurrentBoard.GetDice(dice.Id).AddModifier(DiceModifier.Saved);
+                }
             }
         }
     }
