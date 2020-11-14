@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
+﻿using System.Collections.Generic;
 using DrovaDiceLogic;
 using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.DiceGameSettings;
@@ -106,23 +103,8 @@ public class GUI_RoundManager : MonoBehaviour
 
 	private void ClickedDiceButtonListener(GUI_DiceNumber arg0)
 	{
-		if (arg0.CurrentDice.HasModifier(DiceModifier.Selected))
-		{
-			ExecuteAction(new UnselectAction(arg0.CurrentDice));
-		}
-		else
-		{
-			ExecuteAction(new SelectAction(arg0.CurrentDice));
-		}
+
 	}
 
-	private void ExecuteAction(AAction action)
-	{
-		var game = GameManager.Instance.GetCurrentGame();
-		if (game.CanBePlayed(action))
-		{
-			Debug.Log("Action Select");
-			game.Play(action);
-		}
-	}
+
 }

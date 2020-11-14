@@ -8,21 +8,23 @@ public class GUI_Health : GUI_PlayerBhvr
 {
 	[SerializeField]
 	private TextMeshProUGUI _curentHealthText = default;
-	[SerializeField]
-	private TextMeshProUGUI _maxHealthText = default;
 
 	public override void Init(Player player)
 	{
 		base.Init(player);
 
 		player.PlayerStats.PlayerHealthChangedEvent += HealhtChangedListener;
-		_curentHealthText.SetText(player.PlayerStats.Health.ToString());
-
+		SetText(player.PlayerStats.Health, player.PlayerStats.MaxHealth);
 	}
 
 	private void HealhtChangedListener(int oldhealth, int newhealth)
 	{
-		//ToDo: fance stuff here
-		_curentHealthText.SetText(newhealth.ToString());
+		//ToDo: fancy stuff here
+		SetText(newhealth, _currentPlayer.PlayerStats.MaxHealth);
+	}
+
+	private void SetText(int currentHealth, int maxHealth)
+	{
+		_curentHealthText.SetText(currentHealth + "/" + maxHealth);
 	}
 }
