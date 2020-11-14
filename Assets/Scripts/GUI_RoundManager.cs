@@ -28,8 +28,8 @@ public class GUI_RoundManager : MonoBehaviour
 	{
 		GameManager.Instance.InitGame(new DiceGame(DiceGameSettings.CreateDefaultGameSettings()));
 		GameManager.Instance.GetCurrentGame().ActionEndedEvent += ActionEndedListener;
-		RollDices();
 		CreatePlayer();
+		RollDices();
 	}
 
 	private void CreatePlayer()
@@ -77,10 +77,13 @@ public class GUI_RoundManager : MonoBehaviour
 		Debug.Log("RollDices");
 		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.Dices)
 		{
-			GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _diceAnchor);
-			_diceNumbers.Add(instance);
-			instance.InitDice(item);
-			SetEvents(instance);
+			if (!item.HasModifier(DiceModifier.Saved))
+			{
+				GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _diceAnchor);
+				_diceNumbers.Add(instance);
+				instance.InitDice(item);
+				SetEvents(instance);
+			}
 		}
 	}
 
