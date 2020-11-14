@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using DrovaDiceLogic;
 using DrovaDiceLogic.DiceGameSettings;
 using UnityEditor;
@@ -18,10 +19,19 @@ public class GameManager : MonoBehaviour
 	    {
             if(_instance == null)
             {
-	            _instance = new GameManager();
+	            _instance = FindObjectOfType<GameManager>();
             }
 
             return _instance;
 	    }
+    }
+
+    private DiceGame _currentGame = default;
+
+    public DiceGame GetCurrentGame() => _currentGame;
+
+    public void InitGame(DiceGame diceGame)
+    {
+	    _currentGame = diceGame;
     }
 }

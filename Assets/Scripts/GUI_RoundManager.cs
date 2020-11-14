@@ -16,18 +16,26 @@ public class GUI_RoundManager : MonoBehaviour
 	private Transform _anchor = default;
 	[SerializeField]
 	private List<GUI_DiceNumber> _diceNumbers = new List<GUI_DiceNumber>();
-	private DiceGame _game = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
 
 
 	private void Awake()
 	{
-		_game = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
-		_game.ActionEndedEvent += ActionEndedListener;
+		GameManager.Instance.InitGame(new DiceGame(DiceGameSettings.CreateDefaultGameSettings()));
+		GameManager.Instance.GetCurrentGame().ActionEndedEvent += ActionEndedListener;
 		RollDices();
 	}
 
-	private void ActionEndedListener(DiceGame.ActionEndedEventArgs args)
+	private void ActionEndedListener(DiceGame.GameMoveEndedEventArgs args)
 	{
+		if (args.Action is AAction action)
+		{
+			if (action is SelectAction)
+			{
+
+			}
+
+		}
+
 		CleanBoard();
 		RollDices();
 	}
@@ -45,7 +53,7 @@ public class GUI_RoundManager : MonoBehaviour
 	public void RollDices()
 	{
 		Debug.Log("RollDices");
-		foreach (var item in _game.CurrentBoard.Dices)
+		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.Dices)
 		{
 			GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _anchor);
 			_diceNumbers.Add(instance);
@@ -85,10 +93,11 @@ public class GUI_RoundManager : MonoBehaviour
 
 	private void ExecuteAction(AAction action)
 	{
-		if (_game.CanBePlayed(action))
+		var game = GameManager.Instance.GetCurrentGame();
+		if (game.CanBePlayed(action))
 		{
 			Debug.Log("Action Select");
-			_game.Play(action);
+			game.Play(action);
 		}
 	}
 }
