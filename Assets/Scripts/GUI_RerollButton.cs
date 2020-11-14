@@ -19,7 +19,7 @@ public class GUI_RerollButton : MonoBehaviour
 	private void RerollButtonClickedListener()
 	{
 		var game = GameManager.Instance.GetCurrentGame();
-		var move = new RerollMove();
+		var move = new RerollTurn();
 		game.Play(move);
 	}
 }
