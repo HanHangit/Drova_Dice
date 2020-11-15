@@ -144,6 +144,11 @@ namespace DrovaDiceLogic.BoardLogic
             return Dices.FindAll(d => !d.HasModifier(DiceModifier.Used));
         }
 
+        public List<Dice> GetBoardDices()
+        {
+            return GetActiveDices().FindAll(d => !d.HasModifier(DiceModifier.Saved));
+        }
+
         public List<Dice> GetSelectedDices()
         {
             return Dices.FindAll(d => d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Used));
@@ -161,13 +166,19 @@ namespace DrovaDiceLogic.BoardLogic
 
         public void CheckInstantRules(DiceGame game)
         {
-            foreach (var rule in game.DiceGameSettings.RuleSettings.GetInstantRules())
+            bool foundRule = false;
+            do
             {
-                if (rule.CanPlayRule(game, game.CurrentBoard.CurrentPlayer))
+                foundRule = false;
+                foreach (var rule in game.DiceGameSettings.RuleSettings.GetInstantRules())
                 {
-                    rule.PlayRule(game, game.CurrentBoard.CurrentPlayer);
+                    if (rule.CanPlayRule(game, game.CurrentBoard.CurrentPlayer))
+                    {
+                        rule.PlayRule(game, game.CurrentBoard.CurrentPlayer);
+                        foundRule = true;
+                    }
                 }
-            }
+            } while (foundRule);
         }
 
         public class RoundEndedEventArgs
