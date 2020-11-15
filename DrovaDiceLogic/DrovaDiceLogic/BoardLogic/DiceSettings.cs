@@ -21,7 +21,7 @@ namespace DrovaDiceLogic.BoardLogic
 
         public int RollNewNumber()
         {
-            return RandomGenerator.Next(_minNumber, _maxNumber);
+            return RandomGenerator.Next(_minNumber, _maxNumber + 1);
         }
     }
 }

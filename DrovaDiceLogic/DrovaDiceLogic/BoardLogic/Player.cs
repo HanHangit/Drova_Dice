@@ -16,7 +16,5 @@ namespace DrovaDiceLogic.BoardLogic
             _playerStats = stats;
             _playerSettings = settings;
         }
-
-
     }
 }

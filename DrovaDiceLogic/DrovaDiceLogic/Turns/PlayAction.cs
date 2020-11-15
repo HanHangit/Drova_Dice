@@ -7,9 +7,9 @@ using DrovaDiceLogic.Rules;
 
 namespace DrovaDiceLogic.Moves
 {
-    public class PlayAction : AAction
+    public class PlayAction : APlayerAction
     {
-        public PlayAction() : base(null)
+        public PlayAction(int playerID) : base(playerID)
         {
 
         }
@@ -17,16 +17,18 @@ namespace DrovaDiceLogic.Moves
         internal override bool ValidateGameAction(DiceGame game)
         {
             var rules = game.DiceGameSettings.RuleSettings.Rules;
+            var player = game.CurrentBoard.GetPlayer(PlayerID);
 
-            return rules.Any(r => r.CanPlayRule(game));
+            return player != null && rules.Any(r => r.CanPlayRule(game, player));
         }
 
         internal override void PlayGameAction(DiceGame game)
         {
             if (ValidateGameAction(game))
             {
-                var rule = game.DiceGameSettings.RuleSettings.Rules.Find(f => f.CanPlayRule(game));
-                rule.PlayRule(game);
+                var player = game.CurrentBoard.GetPlayer(PlayerID);
+                var rule = game.DiceGameSettings.RuleSettings.Rules.Find(f => f.CanPlayRule(game, player));
+                rule.PlayRule(game, player);
             }
         }
     }

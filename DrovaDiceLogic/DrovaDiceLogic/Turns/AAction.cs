@@ -8,12 +8,5 @@ namespace DrovaDiceLogic
 {
     public abstract class AAction : AGameTurn
     {
-        private Dice _dice;
-        public Dice Dice => _dice;
-
-        protected AAction(Dice dice)
-        {
-            _dice = dice;
-        }
     }
 }

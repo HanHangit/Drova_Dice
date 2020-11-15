@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DrovaDiceLogic.BoardLogic;
 
 namespace DrovaDiceLogic.Rules
 {
@@ -11,18 +12,18 @@ namespace DrovaDiceLogic.Rules
         private int _changeHealth = 0;
         public int ChangeHealth => _changeHealth;
 
-        public PatzerRule(ActionTarget actionTarget, int changeAmmo, int changeHealth) : base(actionTarget)
+        public PatzerRule(int changeAmmo, int changeHealth)
         {
             _changeAmmo = changeAmmo;
             _changeHealth = changeHealth;
         }
 
-        internal override void PlayActionRule(DiceGame game)
+        internal override void PlayActionRule(DiceGame game, Player target)
         {
-            var currentPlayer = game.CurrentBoard.CurrentPlayer;
+            var currentPlayer = target;
             if (currentPlayer.PlayerStats.Ammo - _changeAmmo < 0)
             {
-                currentPlayer.PlayerStats.ChangeHealth(_changeHealth);
+                target.PlayerStats.ChangeHealth(_changeHealth);
             }
             else
             {

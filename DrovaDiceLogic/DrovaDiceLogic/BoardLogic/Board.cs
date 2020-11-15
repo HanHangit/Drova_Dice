@@ -158,9 +158,9 @@ namespace DrovaDiceLogic.BoardLogic
         {
             foreach (var rule in game.DiceGameSettings.RuleSettings.GetInstantRules())
             {
-                if (rule.CanPlayRule(game))
+                if (rule.CanPlayRule(game, game.CurrentBoard.CurrentPlayer))
                 {
-                    rule.PlayRule(game);
+                    rule.PlayRule(game, game.CurrentBoard.CurrentPlayer);
                 }
             }
         }

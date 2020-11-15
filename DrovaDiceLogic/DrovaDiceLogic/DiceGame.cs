@@ -43,6 +43,7 @@ namespace DrovaDiceLogic
             {
                 action.PlayGameAction(this);
                 CurrentBoard.CheckInstantRules(this);
+                CheckRoundEnd();
                 CheckGameEnd();
                 if (_diceGameState == DiceGameStates.Running)
                 {
@@ -53,6 +54,14 @@ namespace DrovaDiceLogic
             }
 
             return false;
+        }
+
+        private void CheckRoundEnd()
+        {
+            if (!CurrentBoard.GetActiveDices().Any())
+            {
+                Play(new EndRound());
+            }
         }
 
         private void CheckGameEnd()

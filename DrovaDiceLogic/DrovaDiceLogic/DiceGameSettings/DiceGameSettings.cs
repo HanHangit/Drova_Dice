@@ -28,15 +28,15 @@ namespace DrovaDiceLogic.DiceGameSettings
         public static DiceGameSettings CreateDefaultGameSettings()
         {
             return new DiceGameSettings(
-                    new RoundStartSettings(6, 2, 3),
+                    new RoundStartSettings(6, 2, 2),
                     new DiceSettings(1, 6),
-                    new PlayerSettings(20, 5),
+                    new PlayerSettings(20, 0, 20, 5),
                     new RuleSettings(new List<Rule>
                     {
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                    new ChangeAmmoRule(ActionTarget.Self, 1)
+                                    new ChangeAmmoRule(1)
                                 },
                                 new List<ARestriction>
                                 {
@@ -48,7 +48,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ChangeAmmoRule(ActionTarget.Self, 3)
+                                        new ChangeAmmoRule(3)
                                 },
                                 new List<ARestriction>
                                 {
@@ -61,7 +61,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ShootRule(ActionTarget.Enemy, -1, 1, -1)
+                                        new ShootRule(-1, 1, -1)
                                 },
                                 new List<ARestriction>
                                 {
@@ -74,8 +74,8 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ShootRule(ActionTarget.Enemy, -1, 2, -1),
-                                        new ChangeAmmoRule(ActionTarget.Self, 1)
+                                        new ShootRule(-1, 2, -1),
+                                        new ChangeAmmoRule(1)
                                 },
                                 new List<ARestriction>
                                 {
@@ -89,8 +89,8 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ShootRule(ActionTarget.Enemy, -1, 3, -1),
-                                        new ChangeAmmoRule(ActionTarget.Self, 2)
+                                        new ShootRule(-1, 3, -1),
+                                        new ChangeAmmoRule(2)
                                 },
                                 new List<ARestriction>
                                 {
@@ -105,7 +105,8 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ChangeAmmoRule(ActionTarget.Self, 1)
+                                        new ChangeAmmoRule(1),
+                                        new ChangeAmmoRule(1)
                                 },
                                 new List<ARestriction>
                                 {
@@ -118,7 +119,8 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ChangeAmmoRule(ActionTarget.Self, 2)
+                                        new ChangeAmmoRule(2),
+                                        new ChangeAmmoRule(2)
                                 },
                                 new List<ARestriction>
                                 {
@@ -132,7 +134,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ChangeHealthRule(ActionTarget.Self, 1)
+                                        new ChangeHealthRule(1)
                                 },
                                 new List<ARestriction>
                                 {
@@ -145,7 +147,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new ChangeHealthRule(ActionTarget.Self, 2)
+                                        new ChangeHealthRule(2)
                                 },
                                 new List<ARestriction>
                                 {
@@ -159,7 +161,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                         new Rule(
                                 new List<ActionRule>
                                 {
-                                        new PatzerRule(ActionTarget.Self, -1, -1)
+                                        new PatzerRule(-1, -1)
                                 },
                                 new List<ARestriction>
                                 {

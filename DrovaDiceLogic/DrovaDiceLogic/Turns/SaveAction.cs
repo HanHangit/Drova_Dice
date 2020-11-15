@@ -8,7 +8,7 @@ namespace DrovaDiceLogic.Moves
 {
     public class SaveAction : AAction
     {
-        public SaveAction() : base(null)
+        public SaveAction()
         {
 
         }

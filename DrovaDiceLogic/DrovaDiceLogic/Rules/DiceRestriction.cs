@@ -17,7 +17,7 @@ namespace DrovaDiceLogic.Rules
             _neededDices = ruleDices;
         }
 
-        public override bool CheckGameTurn(DiceGame game)
+        public override bool CheckGameTurn(DiceGame game, Player target)
         {
             return IsPossible(game);
         }
@@ -44,7 +44,7 @@ namespace DrovaDiceLogic.Rules
             return result && !dices.Any();
         }
 
-        public void PlayAfterRuleAction(DiceGame game)
+        public void PlayAfterRuleAction(DiceGame game, Player target)
         {
             var dices = game.CurrentBoard.GetSelectedDices();
 

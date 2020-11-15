@@ -24,6 +24,7 @@ namespace DrovaDiceLogic.BoardLogic
         internal Dice(int id, int number)
         {
             _number = number;
+            _id = id;
         }
 
         internal Dice(int id, int number, DiceSettings settings)
