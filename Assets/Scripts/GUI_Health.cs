@@ -13,10 +13,15 @@ public class GUI_Health : GUI_PlayerBhvr
 	[SerializeField]
 	private GUI_PlaySound _soundHealFeedback = default;
 
+	[SerializeField]
+	private List<SoundContainer> _soundContainer = default;
+	private SoundContainer _targetSound = default;
+
 	public override void Init(Player player)
 	{
 		base.Init(player);
 
+		_targetSound = _soundContainer[UnityEngine.Random.Range(0, _soundContainer.Count - 1)];
 		player.PlayerStats.PlayerHealthChangedEvent += HealhtChangedListener;
 		SetText(player.PlayerStats.Health, player.PlayerStats.MaxHealth);
 	}
@@ -26,7 +31,7 @@ public class GUI_Health : GUI_PlayerBhvr
 		//ToDo: fancy stuff here
 		if(oldhealth > newhealth)
 		{
-			_soundDamagedFeedback.PlaySound();
+			GameManager.Instance.PlayAudioSound(_targetSound.GetAudioClipRandom());
 		}
 		else
 		{

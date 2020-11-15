@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class GUI_RerollButton : MonoBehaviour
 {
-
 	[SerializeField]
 	private Button _rerollButton = default;
 

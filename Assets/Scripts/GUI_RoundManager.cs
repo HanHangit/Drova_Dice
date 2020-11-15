@@ -24,18 +24,26 @@ public class GUI_RoundManager : MonoBehaviour
 	[SerializeField]
 	private List<GUI_DiceNumber> _diceNumbers = new List<GUI_DiceNumber>();
 
+	[SerializeField]
+	private GUI_PlaySound _playSound = default;
 
 	private void Awake()
 	{
 		GameManager.Instance.InitGame(new DiceGame(DiceGameSettings.CreateDefaultGameSettings()));
+	}
+
+	public void Init()
+	{
+
 		GameManager.Instance.GetCurrentGame().ActionEndedEvent += ActionEndedListener;
+		_playSound.PlaySound();
 		CreatePlayer();
 		RollDices();
 	}
 
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.A))
+		if (Input.GetKeyDown(KeyCode.A))
 		{
 			GameManager.Instance.CreateEndScreen();
 		}
@@ -58,13 +66,11 @@ public class GUI_RoundManager : MonoBehaviour
 
 	private void ActionEndedListener(DiceGame.GameTurnEndedEventArgs args)
 	{
-		if (args.GameTurn is AAction action)
+		if (args.GameTurn is RerollTurn)
 		{
-			if (action is SelectAction)
-			{
-
-			}
+			_playSound.PlaySound();
 		}
+
 
 		CleanBoard();
 		RollDices();
@@ -72,7 +78,7 @@ public class GUI_RoundManager : MonoBehaviour
 
 	private void CleanBoard()
 	{
-		for (int i = _diceNumbers.Count - 1; i >= 0 ; i--)
+		for (int i = _diceNumbers.Count - 1; i >= 0; i--)
 		{
 			var instance = _diceNumbers[i];
 			_diceNumbers.Remove(instance);

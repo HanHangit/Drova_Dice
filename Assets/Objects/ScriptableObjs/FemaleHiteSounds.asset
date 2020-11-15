@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6348f01a91f63ec408846b27fe2689f8, type: 3}
+  m_Name: FemaleHiteSounds
+  m_EditorClassIdentifier: 
+  _clips:
+  - {fileID: 8300000, guid: e127ebb262a1b1449afca93ea13b0f3b, type: 3}
+  - {fileID: 8300000, guid: 35d5425ba0e41c44997577ba52efcd18, type: 3}
+  - {fileID: 8300000, guid: 68b3ce5ec7160384082b521f9c457ba5, type: 3}
+  - {fileID: 8300000, guid: d472a291bb11afa4e9918021ff96cb98, type: 3}
+  - {fileID: 8300000, guid: 7089f9a34982ca442a18f2bc896f4fed, type: 3}
+  - {fileID: 8300000, guid: 2024ff12bfeed494aac58e5187a14dea, type: 3}
+  - {fileID: 8300000, guid: ed8cae9221f3cbf42b344d77fb527429, type: 3}
+  - {fileID: 8300000, guid: be87eb7940d677346865c517305ba54d, type: 3}
+  - {fileID: 8300000, guid: dc0f39cf9a783af40b8a3c08d098a1b3, type: 3}

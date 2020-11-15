@@ -10,10 +10,13 @@ public class GUI_PlaySound : MonoBehaviour
 	[SerializeField]
 	private List<AudioClip> _audioClips = default;
 
+
 	private void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Alpha1))
+		{
 			PlaySound();
+		}
 	}
 
 	public void PlaySound()
