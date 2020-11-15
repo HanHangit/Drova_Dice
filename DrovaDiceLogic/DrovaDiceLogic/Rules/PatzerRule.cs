@@ -22,13 +22,13 @@ namespace DrovaDiceLogic.Rules
         {
             foreach (var player in game.CurrentBoard.Players)
             {
-                if (player.PlayerStats.Ammo - _changeAmmo < 0)
+                if (player.PlayerStats.Ammo + _changeAmmo < 0)
                 {
-                    player.PlayerStats.ChangeHealth(_changeHealth);
+                    player.PlayerStats.ChangeHealth(_changeHealth, this);
                 }
                 else
                 {
-                    player.PlayerStats.ChangeAmmo(_changeAmmo);
+                    player.PlayerStats.ChangeAmmo(_changeAmmo, this);
                 }
             }
         }

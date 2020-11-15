@@ -19,11 +19,11 @@ namespace DrovaDiceLogic.Rules
         {
             if (ActionTarget == ActionTarget.Target)
             {
-                target.PlayerStats.ChangeHealth(_changeHealth);
+                target.PlayerStats.ChangeHealth(_changeHealth, this);
             }
             else
             {
-                game.CurrentBoard.GetOtherPlayer(target).PlayerStats.ChangeHealth(_changeHealth);
+                game.CurrentBoard.GetOtherPlayer(target).PlayerStats.ChangeHealth(_changeHealth, this);
             }
         }
     }
