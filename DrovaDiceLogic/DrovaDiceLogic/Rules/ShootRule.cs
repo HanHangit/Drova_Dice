@@ -27,8 +27,8 @@ namespace DrovaDiceLogic.Rules
             {
                 if (origin.PlayerStats.Ammo - _arrowsPerShoot >= 0)
                 {
-                    targetPlayer.PlayerStats.ChangeHealth(_changeHealth);
-                    origin.PlayerStats.ChangeAmmo(-_arrowsPerShoot);
+                    targetPlayer.PlayerStats.ChangeHealth(_changeHealth, this);
+                    origin.PlayerStats.ChangeAmmo(-_arrowsPerShoot, this);
                 }
             }
         }

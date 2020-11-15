@@ -19,11 +19,11 @@ namespace DrovaDiceLogic.Rules
         {
             if (ActionTarget == ActionTarget.Target)
             {
-                target.PlayerStats.ChangeAmmo(_changeAmmo);
+                target.PlayerStats.ChangeAmmo(_changeAmmo, this);
             }
             else
             {
-                game.CurrentBoard.GetOtherPlayer(target).PlayerStats.ChangeAmmo(_changeAmmo);
+                game.CurrentBoard.GetOtherPlayer(target).PlayerStats.ChangeAmmo(_changeAmmo, this);
             }
         }
     }

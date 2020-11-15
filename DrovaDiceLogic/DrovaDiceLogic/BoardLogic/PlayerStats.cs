@@ -17,8 +17,8 @@ namespace DrovaDiceLogic.BoardLogic
         private int _maxAmmo = 0;
         public int MaxAmmo => _maxAmmo;
 
-        public delegate void PlayerHealthChangedDelegate(int oldHealth, int newHealth);
-        public delegate void PlayerAmmoChangedDelegate(int oldAmmo, int newAmmo);
+        public delegate void PlayerHealthChangedDelegate(object source, int oldHealth, int newHealth);
+        public delegate void PlayerAmmoChangedDelegate(object source, int oldAmmo, int newAmmo);
 
         public event PlayerHealthChangedDelegate PlayerHealthChangedEvent;
         public event PlayerAmmoChangedDelegate PlayerAmmoChangedEvent;
@@ -32,22 +32,31 @@ namespace DrovaDiceLogic.BoardLogic
             _ammo = startAmmo;
         }
 
-        internal void ChangeHealth(int health)
+        internal void ChangeHealth(int health, object source)
         {
             int oldHealth = _health;
             _health += health;
             _health = Math.Min(_health, _maxHealth);
 
-            PlayerHealthChangedEvent?.Invoke(oldHealth, _health);
+            PlayerHealthChangedEvent?.Invoke(source, oldHealth, _health);
         }
 
-        internal void ChangeAmmo(int ammo)
+        internal void ChangeAmmo(int ammo, object source)
         {
             int oldAmmo = _ammo;
-            _ammo += ammo;
-            _ammo = Math.Min(_ammo, _maxAmmo);
+            if (_ammo + ammo < 0)
+            {
+                var diff = _ammo - ammo;
+                _ammo = 0;
+                ChangeHealth(diff, source);
+            }
+            else
+            {
+                _ammo += ammo;
+                _ammo = Math.Min(_ammo, _maxAmmo);
+            }
 
-            PlayerAmmoChangedEvent?.Invoke(oldAmmo, _ammo);
+            PlayerAmmoChangedEvent?.Invoke(source, oldAmmo, _ammo);
         }
     }
 }

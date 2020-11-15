@@ -41,7 +41,7 @@ namespace Tests
             var diceGame = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
             var player = diceGame.CurrentBoard.CurrentPlayer;
             var enemy = diceGame.CurrentBoard.EnemyPlayers[0];
-            enemy.PlayerStats.ChangeAmmo(1);
+            enemy.PlayerStats.ChangeAmmo(1, this);
             diceGame.CurrentBoard.SetDices(new List<Dice>
             {
                     new Dice(0,1),
@@ -69,7 +69,7 @@ namespace Tests
             var diceGame = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
             var enemy = diceGame.CurrentBoard.Players.Find(p => p.PlayerStats.ID != diceGame.CurrentBoard.CurrentPlayer.PlayerStats.ID);
             var player = diceGame.CurrentBoard.CurrentPlayer;
-            player.PlayerStats.ChangeAmmo(1);
+            player.PlayerStats.ChangeAmmo(1, this);
             var board = diceGame.CurrentBoard;
 
             board.SetDices(new List<Dice>

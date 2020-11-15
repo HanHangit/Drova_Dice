@@ -40,7 +40,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                    new DiceRestriction(new List<Dice>()
+                                    new DiceSelectionRestriction(new List<Dice>()
                                     {
                                         new Dice(0,1)
                                     })
@@ -52,7 +52,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,2),
                                                 new Dice(0, 2)
@@ -65,7 +65,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,3)
                                         }),
@@ -79,7 +79,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,3),
                                                 new Dice(0,3)
@@ -94,7 +94,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,3),
                                                 new Dice(0,3),
@@ -106,11 +106,11 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 new List<ActionRule>
                                 {
                                         new ChangeAmmoRule(1),
-                                        new ChangeAmmoRule(1)
+                                        new ChangeAmmoRule(-1, ActionTarget.Self)
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,4),
                                                 new Dice(0,4)
@@ -120,11 +120,11 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 new List<ActionRule>
                                 {
                                         new ChangeAmmoRule(2),
-                                        new ChangeAmmoRule(2)
+                                        new ChangeAmmoRule(-2, ActionTarget.Self)
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,4),
                                                 new Dice(0,4),
@@ -138,7 +138,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,5),
                                                 new Dice(0,5)
@@ -151,7 +151,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceSelectionRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,5),
                                                 new Dice(0,5),
@@ -165,7 +165,7 @@ namespace DrovaDiceLogic.DiceGameSettings
                                 },
                                 new List<ARestriction>
                                 {
-                                        new DiceRestriction(new List<Dice>()
+                                        new DiceExistRestriction(new List<Dice>()
                                         {
                                                 new Dice(0,6),
                                         })

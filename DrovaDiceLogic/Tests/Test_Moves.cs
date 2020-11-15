@@ -34,11 +34,40 @@ namespace Tests
             var diceGame = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
             var enemy = diceGame.CurrentBoard.Players.Find(p => p.PlayerStats.ID != diceGame.CurrentBoard.CurrentPlayer.PlayerStats.ID);
             var player = diceGame.CurrentBoard.CurrentPlayer;
+            diceGame.CurrentBoard.SetDices(new List<Dice>
+            {
+                    new Dice(0,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(1,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(2,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(3,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(4,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(5,1, diceGame.DiceGameSettings.DiceSettings)
+            });
 
             Assert.IsTrue(diceGame.CanBePlayed(new RerollTurn()));
             diceGame.Play(new RerollTurn());
+            diceGame.CurrentBoard.SetDices(new List<Dice>
+            {
+                    new Dice(0,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(1,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(2,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(3,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(4,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(5,1, diceGame.DiceGameSettings.DiceSettings)
+            });
+
             Assert.IsTrue(diceGame.CanBePlayed(new RerollTurn()));
             diceGame.Play(new RerollTurn());
+            diceGame.CurrentBoard.SetDices(new List<Dice>
+            {
+                    new Dice(0,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(1,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(2,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(3,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(4,1, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(5,1, diceGame.DiceGameSettings.DiceSettings)
+            });
+
             Assert.IsTrue(diceGame.CanBePlayed(new SelectAction(new Dice(0))));
         }
     }

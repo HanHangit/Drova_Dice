@@ -7,12 +7,12 @@ using DrovaDiceLogic.Moves;
 
 namespace DrovaDiceLogic.Rules
 {
-    public class DiceRestriction : ARestriction, IAfterRulePlayedAction
+    public class DiceExistRestriction : ARestriction, IAfterRulePlayedAction
     {
         private List<Dice> _neededDices = new List<Dice>();
         public List<Dice> NeededDices => _neededDices;
 
-        internal DiceRestriction(List<Dice> ruleDices)
+        internal DiceExistRestriction(List<Dice> ruleDices)
         {
             _neededDices = ruleDices;
         }
@@ -25,7 +25,7 @@ namespace DrovaDiceLogic.Rules
         private bool IsPossible(DiceGame game)
         {
             bool result = true;
-            var dices = game.CurrentBoard.GetSelectedDices();
+            var dices = game.CurrentBoard.GetActiveDices();
 
             foreach (var dice in _neededDices)
             {
@@ -41,12 +41,12 @@ namespace DrovaDiceLogic.Rules
                 }
             }
 
-            return result && !dices.Any();
+            return result;
         }
 
         public void PlayAfterRuleAction(DiceGame game, Player target)
         {
-            var dices = game.CurrentBoard.GetSelectedDices();
+            var dices = game.CurrentBoard.GetActiveDices();
 
             foreach (var dice in _neededDices)
             {
