@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DrovaDiceLogic.BoardLogic;
 
 namespace DrovaDiceLogic.Rules
 {
@@ -9,24 +10,14 @@ namespace DrovaDiceLogic.Rules
         private int _changeAmmo = 0;
         public int ChangeAmmo => _changeAmmo;
 
-        public ChangeAmmoRule(ActionTarget actionTarget, int changeAmmo) : base(actionTarget)
+        public ChangeAmmoRule(int changeAmmo)
         {
             _changeAmmo = changeAmmo;
         }
 
-        internal override void PlayActionRule(DiceGame game)
+        internal override void PlayActionRule(DiceGame game, Player target)
         {
-            if (ActionTarget == ActionTarget.Enemy)
-            {
-                foreach (var enemyPlayer in game.CurrentBoard.EnemyPlayers)
-                {
-                    enemyPlayer.PlayerStats.ChangeAmmo(_changeAmmo);
-                }
-            }
-            else
-            {
-                game.CurrentBoard.CurrentPlayer.PlayerStats.ChangeAmmo(_changeAmmo);
-            }
+            target.PlayerStats.ChangeAmmo(_changeAmmo);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DrovaDiceLogic.DiceGameSettings
         public int NumDices => _numDices;
         private int _numPlayers = 2;
         public int NumPlayers => _numPlayers;
-        private int _numRerolls = 3;
+        private int _numRerolls = 2;
         public int NumRerolls => _numRerolls;
 
         public RoundStartSettings(int numDices, int numPlayers, int numRerolls)

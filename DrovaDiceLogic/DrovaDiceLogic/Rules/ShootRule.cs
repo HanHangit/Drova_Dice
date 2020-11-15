@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using DrovaDiceLogic.BoardLogic;
 
 namespace DrovaDiceLogic.Rules
 {
@@ -11,38 +12,23 @@ namespace DrovaDiceLogic.Rules
         private int _amountShoots = 0;
         private int _arrowsPerShoot = 0;
 
-        public ShootRule(ActionTarget actionTarget, int changeHealth, int amountShoots, int arrowsPerShoot) : base(actionTarget)
+        public ShootRule(int changeHealth, int amountShoots, int arrowsPerShoot)
         {
             _changeHealth = changeHealth;
             _amountShoots = amountShoots;
             _arrowsPerShoot = arrowsPerShoot;
         }
 
-        internal override void PlayActionRule(DiceGame game)
+        internal override void PlayActionRule(DiceGame game, Player target)
         {
-            if (ActionTarget == ActionTarget.Enemy)
+            var targetPlayer = target;
+            var enemy = game.CurrentBoard.Players.Find(p => p.PlayerStats.ID != target.PlayerStats.ID);
+            for (int i = 0; i < _amountShoots; i++)
             {
-                for (int i = 0; i < _amountShoots; i++)
+                if (targetPlayer.PlayerStats.Ammo - _arrowsPerShoot >= 0)
                 {
-                    if (game.CurrentBoard.CurrentPlayer.PlayerStats.Ammo - _arrowsPerShoot >= 0)
-                    {
-                        foreach (var enemyPlayer in game.CurrentBoard.EnemyPlayers)
-                        {
-                            enemyPlayer.PlayerStats.ChangeHealth(_changeHealth);
-                        }
-                        game.CurrentBoard.CurrentPlayer.PlayerStats.ChangeAmmo(_arrowsPerShoot);
-                    }
-                }
-            }
-            else
-            {
-                for (int i = 0; i < _amountShoots; i++)
-                {
-                    if (game.CurrentBoard.CurrentPlayer.PlayerStats.Ammo - _arrowsPerShoot >= 0)
-                    {
-                        game.CurrentBoard.CurrentPlayer.PlayerStats.ChangeHealth(_changeHealth);
-                        game.CurrentBoard.CurrentPlayer.PlayerStats.ChangeAmmo(_arrowsPerShoot);
-                    }
+                    enemy.PlayerStats.ChangeHealth(_changeHealth);
+                    targetPlayer.PlayerStats.ChangeAmmo(_arrowsPerShoot);
                 }
             }
         }

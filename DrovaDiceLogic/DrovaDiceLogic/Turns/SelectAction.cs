@@ -5,7 +5,7 @@ using DrovaDiceLogic.BoardLogic;
 
 namespace DrovaDiceLogic.Moves
 {
-    public class SelectAction : AAction
+    public class SelectAction : ADiceAction
     {
         public SelectAction(Dice dice) : base(dice)
         {

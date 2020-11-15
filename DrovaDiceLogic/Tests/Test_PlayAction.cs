@@ -15,8 +15,17 @@ namespace Tests
         public void PlayAction_Valid()
         {
             var diceGame = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
+            diceGame.CurrentBoard.SetDices(new List<Dice>
+            {
+                    new Dice(0,1),
+                    new Dice(1,1),
+                    new Dice(2,2),
+                    new Dice(3,3),
+                    new Dice(4,4),
+                    new Dice(5,5),
+            });
 
-            var playAction = new PlayAction();
+            var playAction = new PlayAction(0);
             var selectAction = new SelectAction(new Dice(1));
 
             Assert.IsFalse(diceGame.CanBePlayed(playAction));
@@ -46,7 +55,7 @@ namespace Tests
             board.GetDice(1).AddModifier(DiceModifier.Selected);
             board.GetDice(2).AddModifier(DiceModifier.Selected);
 
-            diceGame.Play(new PlayAction());
+            diceGame.Play(new PlayAction(player.PlayerStats.ID));
 
             var usedDices = board.GetUsedDices();
 

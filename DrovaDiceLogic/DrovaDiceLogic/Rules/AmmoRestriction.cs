@@ -16,9 +16,9 @@ namespace DrovaDiceLogic.Rules
             _neededAmmo = neededAmmo;
         }
 
-        public override bool CheckGameTurn(DiceGame game)
+        public override bool CheckGameTurn(DiceGame game, Player target)
         {
-            return game.CurrentBoard.CurrentPlayer.PlayerStats.Ammo >= _neededAmmo;
+            return game.CurrentBoard.GetPlayer(target.PlayerStats.ID).PlayerStats.Ammo >= _neededAmmo;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace DrovaDiceLogic.Rules
 {
     public abstract class ARestriction
     {
-        public abstract bool CheckGameTurn(DiceGame game);
+        public abstract bool CheckGameTurn(DiceGame game, Player target);
     }
 }
