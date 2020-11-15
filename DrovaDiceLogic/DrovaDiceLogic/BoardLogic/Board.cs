@@ -59,7 +59,7 @@ namespace DrovaDiceLogic.BoardLogic
         {
             for (int i = 0; i < GameSettings.StartSettings.NumPlayers; i++)
             {
-                _players.Add(new Player(GameSettings.PlayerPlayerSettings, new PlayerStats(i, GameSettings.PlayerPlayerSettings.MaxHealth, GameSettings.PlayerPlayerSettings.MaxAmmo, GameSettings)));
+                _players.Add(new Player(GameSettings.PlayerPlayerSettings, new PlayerStats(i, GameSettings.PlayerPlayerSettings.StartHealth, GameSettings.PlayerPlayerSettings.StartAmmo, GameSettings)));
             }
 
             _currentPlayer = _players[0];
@@ -82,6 +82,11 @@ namespace DrovaDiceLogic.BoardLogic
                     dice.Reroll();
                 }
             }
+        }
+
+        public Player GetOtherPlayer(Player player)
+        {
+            return _players.Find(p => p.PlayerStats.ID != player.PlayerStats.ID);
         }
 
         internal void SetDices(List<Dice> dices)

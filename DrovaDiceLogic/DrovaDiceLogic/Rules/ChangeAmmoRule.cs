@@ -10,14 +10,21 @@ namespace DrovaDiceLogic.Rules
         private int _changeAmmo = 0;
         public int ChangeAmmo => _changeAmmo;
 
-        public ChangeAmmoRule(int changeAmmo)
+        public ChangeAmmoRule(int changeAmmo, ActionTarget target = ActionTarget.Target) : base(target)
         {
             _changeAmmo = changeAmmo;
         }
 
         internal override void PlayActionRule(DiceGame game, Player target)
         {
-            target.PlayerStats.ChangeAmmo(_changeAmmo);
+            if (ActionTarget == ActionTarget.Target)
+            {
+                target.PlayerStats.ChangeAmmo(_changeAmmo);
+            }
+            else
+            {
+                game.CurrentBoard.GetOtherPlayer(target).PlayerStats.ChangeAmmo(_changeAmmo);
+            }
         }
     }
 }

@@ -12,7 +12,7 @@ namespace DrovaDiceLogic.Rules
         private int _changeHealth = 0;
         public int ChangeHealth => _changeHealth;
 
-        public PatzerRule(int changeAmmo, int changeHealth)
+        public PatzerRule(int changeAmmo, int changeHealth, ActionTarget target = ActionTarget.Target) : base(target)
         {
             _changeAmmo = changeAmmo;
             _changeHealth = changeHealth;
@@ -20,14 +20,16 @@ namespace DrovaDiceLogic.Rules
 
         internal override void PlayActionRule(DiceGame game, Player target)
         {
-            var currentPlayer = target;
-            if (currentPlayer.PlayerStats.Ammo - _changeAmmo < 0)
+            foreach (var player in game.CurrentBoard.Players)
             {
-                target.PlayerStats.ChangeHealth(_changeHealth);
-            }
-            else
-            {
-                currentPlayer.PlayerStats.ChangeAmmo(_changeAmmo);
+                if (player.PlayerStats.Ammo - _changeAmmo < 0)
+                {
+                    player.PlayerStats.ChangeHealth(_changeHealth);
+                }
+                else
+                {
+                    player.PlayerStats.ChangeAmmo(_changeAmmo);
+                }
             }
         }
     }

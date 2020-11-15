@@ -10,14 +10,21 @@ namespace DrovaDiceLogic.Rules
         private int _changeHealth = 0;
         public int ChangeHealth => _changeHealth;
 
-        public ChangeHealthRule(int changeHealth)
+        public ChangeHealthRule(int changeHealth, ActionTarget target = ActionTarget.Target) : base(target)
         {
             _changeHealth = changeHealth;
         }
 
         internal override void PlayActionRule(DiceGame game, Player target)
         {
-            target.PlayerStats.ChangeHealth(_changeHealth);
+            if (ActionTarget == ActionTarget.Target)
+            {
+                target.PlayerStats.ChangeHealth(_changeHealth);
+            }
+            else
+            {
+                game.CurrentBoard.GetOtherPlayer(target).PlayerStats.ChangeHealth(_changeHealth);
+            }
         }
     }
 }
