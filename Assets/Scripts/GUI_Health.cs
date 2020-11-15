@@ -24,14 +24,15 @@ public class GUI_Health : GUI_PlayerBhvr
 	{
 		base.Init(player);
 
-		_targetSound = _soundContainer[UnityEngine.Random.Range(0, _soundContainer.Count - 1)];
+		_targetSound = _soundContainer[player.PlayerStats.ID];
+
 		player.PlayerStats.PlayerHealthChangedEvent += HealhtChangedListener;
 		SetText(player.PlayerStats.Health, player.PlayerStats.MaxHealth);
 	}
 
 	private void HealhtChangedListener(object source, int oldhealth, int newhealth)
 	{
-		if (source is PatzerRule)
+		if (!(source is PatzerRule))
 		{
 			_soundArrow.PlaySound();
 		}
