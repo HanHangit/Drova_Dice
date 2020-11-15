@@ -25,7 +25,7 @@ public class GUI_Ammo : GUI_PlayerBhvr
 		_image.sprite = _noAmmo;
 	}
 
-	private void AmmoChangedListener(int oldammo, int newammo)
+	private void AmmoChangedListener(object souce, int oldammo, int newammo)
 	{
 		if (newammo > 0)
 		{

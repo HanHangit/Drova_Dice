@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DrovaDiceLogic;
 using DrovaDiceLogic.BoardLogic;
@@ -11,21 +12,37 @@ using UnityEngine.UI;
 public class GUI_DiceNumber : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
 	[SerializeField]
-	private TextMeshProUGUI _text = default;
-	[SerializeField]
-	private Image _image = default;
+	private Image _feedbackImage = default;
 
 	private Dice _currentDice = default;
 	public Dice CurrentDice => _currentDice;
+	[SerializeField]
+	private Image _targetImage = default;
+
+	[SerializeField]
+	private List<Element> _elements = default;
+
+	[Serializable]
+	public class Element
+	{
+		public int Numer;
+		public Sprite Sprite;
+	}
 
 	public void InitDice(Dice dice)
 	{
+		var sprite = _elements.Find(x => x.Numer == dice.Number).Sprite;
+		_targetImage.sprite = sprite;
+
 		_currentDice = dice;
-		_text.SetText(dice.Number.ToString());
 
 		if(dice.HasModifier(DiceModifier.Selected))
 		{
-			_image.color = Color.red;
+			_feedbackImage.gameObject.SetActive(true);
+		}
+		else
+		{
+			_feedbackImage.gameObject.SetActive(false);
 		}
 	}
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DrovaDiceLogic.BoardLogic;
+using DrovaDiceLogic.Rules;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,8 @@ public class GUI_Health : GUI_PlayerBhvr
 	private TextMeshProUGUI _curentHealthText = default;
 	[SerializeField]
 	private GUI_PlaySound _soundDamagedFeedback = default;
+	[SerializeField]
+	private GUI_PlaySound _soundArrow = default;
 	[SerializeField]
 	private GUI_PlaySound _soundHealFeedback = default;
 
@@ -26,8 +29,12 @@ public class GUI_Health : GUI_PlayerBhvr
 		SetText(player.PlayerStats.Health, player.PlayerStats.MaxHealth);
 	}
 
-	private void HealhtChangedListener(int oldhealth, int newhealth)
+	private void HealhtChangedListener(object source, int oldhealth, int newhealth)
 	{
+		if (source is PatzerRule)
+		{
+			_soundArrow.PlaySound();
+		}
 		//ToDo: fancy stuff here
 		if(oldhealth > newhealth)
 		{

@@ -88,14 +88,12 @@ public class GUI_RoundManager : MonoBehaviour
 
 	public void RollDices()
 	{
-		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.Dices)
+		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.GetActiveDices())
 		{
-			if (!item.HasModifier(DiceModifier.Saved) && !item.HasModifier(DiceModifier.Used))
-			{
+
 				GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _diceAnchor);
 				_diceNumbers.Add(instance);
 				instance.InitDice(item);
-			}
 		}
 	}
 }
