@@ -46,7 +46,7 @@ namespace DrovaDiceLogic.BoardLogic
             int oldAmmo = _ammo;
             if (_ammo + ammo < 0)
             {
-                var diff = _ammo - ammo;
+                var diff = _ammo + ammo;
                 _ammo = 0;
                 ChangeHealth(diff, source);
             }

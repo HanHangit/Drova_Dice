@@ -25,6 +25,7 @@ namespace DrovaDiceLogic
         {
             _currentBoard = new Board(gameSettings);
             Init(gameSettings);
+            CurrentBoard.CheckInstantRules(this);
         }
 
         public void Init(DiceGameSettings.DiceGameSettings gameSettings)
