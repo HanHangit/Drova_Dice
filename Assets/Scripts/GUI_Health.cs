@@ -8,6 +8,10 @@ public class GUI_Health : GUI_PlayerBhvr
 {
 	[SerializeField]
 	private TextMeshProUGUI _curentHealthText = default;
+	[SerializeField]
+	private GUI_PlaySound _soundDamagedFeedback = default;
+	[SerializeField]
+	private GUI_PlaySound _soundHealFeedback = default;
 
 	public override void Init(Player player)
 	{
@@ -20,6 +24,15 @@ public class GUI_Health : GUI_PlayerBhvr
 	private void HealhtChangedListener(int oldhealth, int newhealth)
 	{
 		//ToDo: fancy stuff here
+		if(oldhealth > newhealth)
+		{
+			_soundDamagedFeedback.PlaySound();
+		}
+		else
+		{
+			_soundHealFeedback.PlaySound();
+		}
+
 		SetText(newhealth, _currentPlayer.PlayerStats.MaxHealth);
 	}
 

@@ -33,10 +33,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private GUI_EndCanvas _endCanvasPrefab = default;
+    [SerializeField]
+    private AudioSource _audioSourceSound = default;
 
     public void InitGame(DiceGame diceGame)
     {
 	    _currentGame = diceGame;
+    }
+
+    public void PlayAudioSound(AudioClip clip)
+    {
+	    _audioSourceSound.clip = clip;
+        _audioSourceSound.Play();
     }
 
     public void ExecuteAction(AGameTurn gameTurn)
