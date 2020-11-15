@@ -18,7 +18,8 @@ namespace DrovaDiceLogic.Rules
 
         public override bool CheckGameTurn(DiceGame game, Player target)
         {
-            return game.CurrentBoard.GetPlayer(target.PlayerStats.ID).PlayerStats.Ammo >= _neededAmmo;
+            var enemy = game.CurrentBoard.Players.Find(p => p.PlayerStats.ID != target.PlayerStats.ID);
+            return game.CurrentBoard.GetPlayer(enemy.PlayerStats.ID).PlayerStats.Ammo >= _neededAmmo;
         }
     }
 }

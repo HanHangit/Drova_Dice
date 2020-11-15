@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using DrovaDiceLogic.BoardLogic;
 
@@ -16,7 +17,6 @@ namespace DrovaDiceLogic.Moves
         {
             var board = game.CurrentBoard;
             var dice = board.GetDice(Dice.Id);
-
             if (!dice.HasModifier(DiceModifier.Selected) && !dice.HasModifier(DiceModifier.Used))
             {
                 return true;

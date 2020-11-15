@@ -13,11 +13,19 @@ namespace DrovaDiceLogic.Moves
 
         }
 
+        private bool CanDiceBeSaved(Dice dice, DiceGame game)
+        {
+            return dice.HasModifier(DiceModifier.Selected)
+                   && !dice.HasModifier(DiceModifier.Saved)
+                   && !dice.HasModifier(DiceModifier.Used)
+                   && game.DiceGameSettings.DiceSettings.SaveableNumbers.Any(d => d == dice.Number);
+        }
+
         internal override bool ValidateGameAction(DiceGame game)
         {
             var board = game.CurrentBoard;
 
-            if (board.Dices.Any(d => (d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Saved) && !d.HasModifier(DiceModifier.Used))))
+            if (board.Dices.Any(d => CanDiceBeSaved(d, game)))
             {
                 return true;
             }
@@ -31,7 +39,7 @@ namespace DrovaDiceLogic.Moves
         {
             if (ValidateGameAction(game))
             {
-                foreach (var dice in game.CurrentBoard.Dices.FindAll(d => d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Saved)))
+                foreach (var dice in game.CurrentBoard.Dices.FindAll(d => CanDiceBeSaved(d, game)))
                 {
                     game.CurrentBoard.GetDice(dice.Id).AddModifier(DiceModifier.Saved);
                     game.CurrentBoard.GetDice(dice.Id).RemoveModifier(DiceModifier.CanBeRerolled);
