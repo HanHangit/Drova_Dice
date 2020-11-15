@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Text;
 using DrovaDiceLogic.DiceGameSettings;
 
+[assembly: InternalsVisibleTo("Tests")]
 namespace DrovaDiceLogic.BoardLogic
 {
     public class Board : DiceSettingsObject
@@ -23,6 +25,9 @@ namespace DrovaDiceLogic.BoardLogic
                 return resultList;
             }
         }
+        private int _currentMove = 0;
+        public int CurrentMove => _currentMove;
+
         private List<Player> _players = new List<Player>();
         public List<Player> Players => _players;
         private Player _currentPlayer = null;
@@ -79,11 +84,32 @@ namespace DrovaDiceLogic.BoardLogic
             }
         }
 
+        internal void SetDices(List<Dice> dices)
+        {
+            _dices = dices;
+        }
+
+        internal void AddMove()
+        {
+            _currentMove++;
+        }
+
+        internal void ResetMoves()
+        {
+            _currentMove = 0;
+        }
+
+        public bool IsRerollPossible()
+        {
+            return _currentMove < GameSettings.StartSettings.NumRerolls;
+        }
+
         internal void EndRound()
         {
             int oldID = _currentPlayer.PlayerStats.ID;
             _currentPlayer = _players.Find(p => p.PlayerStats.ID != _currentPlayer.PlayerStats.ID);
             var oldPlayer = _players.Find(p => p.PlayerStats.ID == oldID);
+            _currentMove = 0;
             InitNewDices();
             BoardRoundEndedEvent?.Invoke(new RoundEndedEventArgs(oldPlayer, _currentPlayer));
         }
@@ -103,9 +129,19 @@ namespace DrovaDiceLogic.BoardLogic
             return _dices.Find(d => d.Id == id);
         }
 
+        public List<Dice> GetUsedDices()
+        {
+            return Dices.FindAll(d => d.HasModifier(DiceModifier.Used));
+        }
+
+        public List<Dice> GetActiveDices()
+        {
+            return Dices.FindAll(d => !d.HasModifier(DiceModifier.Used));
+        }
+
         public List<Dice> GetSelectedDices()
         {
-            return Dices.FindAll(d => d.HasModifier(DiceModifier.Selected));
+            return Dices.FindAll(d => d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Used));
         }
 
         public List<Dice> GetSavedDices()
@@ -116,6 +152,17 @@ namespace DrovaDiceLogic.BoardLogic
         public Player GetPlayer(int id)
         {
             return _players.Find(d => d.PlayerStats.ID == id);
+        }
+
+        public void CheckInstantRules(DiceGame game)
+        {
+            foreach (var rule in game.DiceGameSettings.RuleSettings.GetInstantRules())
+            {
+                if (rule.CanPlayRule(game))
+                {
+                    rule.PlayRule(game);
+                }
+            }
         }
 
         public class RoundEndedEventArgs

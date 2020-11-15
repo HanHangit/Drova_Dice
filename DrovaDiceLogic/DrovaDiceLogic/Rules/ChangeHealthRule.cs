@@ -9,12 +9,12 @@ namespace DrovaDiceLogic.Rules
         private int _changeHealth = 0;
         public int ChangeHealth => _changeHealth;
 
-        public ChangeHealthRule(ActionTarget actionTarget, int changeHealth, List<Restriction> restrictions) : base(actionTarget, restrictions)
+        public ChangeHealthRule(ActionTarget actionTarget, int changeHealth) : base(actionTarget)
         {
             _changeHealth = changeHealth;
         }
 
-        protected override void PlayActionRule(DiceGame game)
+        internal override void PlayActionRule(DiceGame game)
         {
             if (ActionTarget == ActionTarget.Enemy)
             {

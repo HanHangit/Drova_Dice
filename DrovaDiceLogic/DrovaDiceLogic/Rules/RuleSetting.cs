@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.Win32.SafeHandles;
 
 namespace DrovaDiceLogic.Rules
 {
     public class RuleSettings
     {
-        private List<ActionRule> _actionRules = new List<ActionRule>();
+        private List<Rule> _rules = new List<Rule>();
 
-        public RuleSettings(List<ActionRule> actionRules)
+        public RuleSettings(List<Rule> rules)
         {
-            _actionRules = actionRules;
+            _rules = rules;
         }
 
-        public List<ActionRule> ActionRules => _actionRules;
+        public List<Rule> Rules => _rules;
+
+        public List<Rule> GetInstantRules()
+        {
+            return _rules.FindAll(r => r.IsInstant);
+        }
     }
 }

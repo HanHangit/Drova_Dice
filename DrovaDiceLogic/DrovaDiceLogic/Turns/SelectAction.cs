@@ -17,7 +17,7 @@ namespace DrovaDiceLogic.Moves
             var board = game.CurrentBoard;
             var dice = board.GetDice(Dice.Id);
 
-            if (!dice.HasModifier(DiceModifier.Selected))
+            if (!dice.HasModifier(DiceModifier.Selected) && !dice.HasModifier(DiceModifier.Used))
             {
                 return true;
             }

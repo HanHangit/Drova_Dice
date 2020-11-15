@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DrovaDiceLogic.BoardLogic;
+using DrovaDiceLogic.Rules;
 
 namespace DrovaDiceLogic.Moves
 {
@@ -15,21 +16,17 @@ namespace DrovaDiceLogic.Moves
 
         internal override bool ValidateGameAction(DiceGame game)
         {
-            return game.CurrentBoard.Dices.Any(d => d.HasModifier(DiceModifier.Selected));
+            var rules = game.DiceGameSettings.RuleSettings.Rules;
+
+            return rules.Any(r => r.CanPlayRule(game));
         }
 
         internal override void PlayGameAction(DiceGame game)
         {
             if (ValidateGameAction(game))
             {
-                game.CurrentBoard.CurrentPlayer.PlayerStats.ChangeAmmo(-1);
-                foreach (var otherPlayer in game.CurrentBoard.Players)
-                {
-                    if (otherPlayer.PlayerStats.ID != game.CurrentBoard.CurrentPlayer.PlayerStats.ID)
-                    {
-                        otherPlayer.PlayerStats.ChangeHealth(-1);
-                    }
-                }
+                var rule = game.DiceGameSettings.RuleSettings.Rules.Find(f => f.CanPlayRule(game));
+                rule.PlayRule(game);
             }
         }
     }

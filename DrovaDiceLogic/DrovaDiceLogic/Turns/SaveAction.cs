@@ -17,7 +17,7 @@ namespace DrovaDiceLogic.Moves
         {
             var board = game.CurrentBoard;
 
-            if (board.Dices.Any(d => (d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Saved))))
+            if (board.Dices.Any(d => (d.HasModifier(DiceModifier.Selected) && !d.HasModifier(DiceModifier.Saved) && !d.HasModifier(DiceModifier.Used))))
             {
                 return true;
             }

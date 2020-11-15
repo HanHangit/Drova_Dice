@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DrovaDiceLogic;
 using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.DiceGameSettings;
@@ -26,20 +27,36 @@ namespace Tests
         }
 
         [TestMethod]
-        public void PlayAction_ChangeHealth()
+        public void PlayAction_Rule()
         {
             var diceGame = new DiceGame(DiceGameSettings.CreateDefaultGameSettings());
-            var player = diceGame.CurrentBoard.Players.Find(p => p.PlayerStats.ID != diceGame.CurrentBoard.CurrentPlayer.PlayerStats.ID);
+            var enemy = diceGame.CurrentBoard.Players.Find(p => p.PlayerStats.ID != diceGame.CurrentBoard.CurrentPlayer.PlayerStats.ID);
+            var player = diceGame.CurrentBoard.CurrentPlayer;
+            var board = diceGame.CurrentBoard;
 
-            var playAction = new PlayAction();
-            var selectAction = new SelectAction(new Dice(1));
+            board.SetDices(new List<Dice>
+            {
+                    new Dice(0, 3, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(1, 3, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(2, 3, diceGame.DiceGameSettings.DiceSettings),
+                    new Dice(3, 5, diceGame.DiceGameSettings.DiceSettings),
+            });
 
-            Assert.IsTrue(player.PlayerStats.Health == player.PlayerStats.MaxHealth);
+            board.GetDice(0).AddModifier(DiceModifier.Selected);
+            board.GetDice(1).AddModifier(DiceModifier.Selected);
+            board.GetDice(2).AddModifier(DiceModifier.Selected);
 
-            diceGame.Play(selectAction);
-            diceGame.Play(playAction);
+            diceGame.Play(new PlayAction());
 
-            Assert.IsTrue(player.PlayerStats.Health < player.PlayerStats.MaxHealth);
+            var usedDices = board.GetUsedDices();
+
+            Assert.IsTrue(usedDices.Count == 3);
+            Assert.IsTrue(usedDices[0].HasModifier(DiceModifier.Used));
+            Assert.IsTrue(usedDices[1].HasModifier(DiceModifier.Used));
+            Assert.IsTrue(usedDices[2].HasModifier(DiceModifier.Used));
+
+            Assert.IsTrue(player.PlayerStats.Ammo == player.PlayerStats.MaxAmmo - 1);
+            Assert.IsTrue(enemy.PlayerStats.Health == player.PlayerStats.MaxHealth - 3);
         }
     }
 }

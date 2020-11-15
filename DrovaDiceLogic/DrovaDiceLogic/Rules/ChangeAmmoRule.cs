@@ -9,12 +9,12 @@ namespace DrovaDiceLogic.Rules
         private int _changeAmmo = 0;
         public int ChangeAmmo => _changeAmmo;
 
-        public ChangeAmmoRule(ActionTarget actionTarget, int changeAmmo, List<Restriction> restrictions) : base(actionTarget, restrictions)
+        public ChangeAmmoRule(ActionTarget actionTarget, int changeAmmo) : base(actionTarget)
         {
             _changeAmmo = changeAmmo;
         }
 
-        protected override void PlayActionRule(DiceGame game)
+        internal override void PlayActionRule(DiceGame game)
         {
             if (ActionTarget == ActionTarget.Enemy)
             {

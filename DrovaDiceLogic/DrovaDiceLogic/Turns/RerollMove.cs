@@ -12,7 +12,7 @@ namespace DrovaDiceLogic
         {
             var board = game.CurrentBoard;
 
-            return board.Dices.Any(d => d.HasModifier(DiceModifier.CanBeRerolled));
+            return board.IsRerollPossible() && board.Dices.Any(d => d.HasModifier(DiceModifier.CanBeRerolled));
         }
 
         internal override void PlayGameAction(DiceGame game)
@@ -20,6 +20,7 @@ namespace DrovaDiceLogic
             if (ValidateGameAction(game))
             {
                 var board = game.CurrentBoard;
+                board.AddMove();
                 board.RerollDices();
             }
         }

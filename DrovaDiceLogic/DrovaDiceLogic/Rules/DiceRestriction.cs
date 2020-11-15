@@ -7,17 +7,17 @@ using DrovaDiceLogic.Moves;
 
 namespace DrovaDiceLogic.Rules
 {
-    public class Restriction
+    public class DiceRestriction : ARestriction, IAfterRulePlayedAction
     {
         private List<Dice> _neededDices = new List<Dice>();
         public List<Dice> NeededDices => _neededDices;
 
-        internal Restriction(List<Dice> ruleDices)
+        internal DiceRestriction(List<Dice> ruleDices)
         {
             _neededDices = ruleDices;
         }
 
-        public bool CheckGameTurn(DiceGame game)
+        public override bool CheckGameTurn(DiceGame game)
         {
             return IsPossible(game);
         }
@@ -42,6 +42,22 @@ namespace DrovaDiceLogic.Rules
             }
 
             return result && !dices.Any();
+        }
+
+        public void PlayAfterRuleAction(DiceGame game)
+        {
+            var dices = game.CurrentBoard.GetSelectedDices();
+
+            foreach (var dice in _neededDices)
+            {
+                var foundDice = dices.Find(d => d.Number == dice.Number);
+                dices.Remove(foundDice);
+                var currentDice = game.CurrentBoard.GetDice(foundDice.Id);
+                currentDice.AddModifier(DiceModifier.Used);
+                currentDice.RemoveModifier(DiceModifier.Selected);
+                currentDice.RemoveModifier(DiceModifier.Saved);
+                currentDice.RemoveModifier(DiceModifier.CanBeRerolled);
+            }
         }
     }
 }
