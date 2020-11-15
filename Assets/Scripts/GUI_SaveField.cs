@@ -60,6 +60,7 @@ public class GUI_SaveField : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
+
 		GameManager.Instance.ExecuteAction(new SaveAction());
 	}
 }

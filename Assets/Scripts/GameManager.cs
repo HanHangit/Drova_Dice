@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
 
     public DiceGame GetCurrentGame() => _currentGame;
 
+    [SerializeField]
+    private GUI_EndCanvas _endCanvasPrefab = default;
+
     public void InitGame(DiceGame diceGame)
     {
 	    _currentGame = diceGame;
@@ -48,4 +51,8 @@ public class GameManager : MonoBehaviour
 	    }
     }
 
+    public void CreateEndScreen()
+    {
+	    Instantiate(_endCanvasPrefab);
+    }
 }

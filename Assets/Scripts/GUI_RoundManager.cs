@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DrovaDiceLogic;
 using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.DiceGameSettings;
@@ -30,6 +31,14 @@ public class GUI_RoundManager : MonoBehaviour
 		GameManager.Instance.GetCurrentGame().ActionEndedEvent += ActionEndedListener;
 		CreatePlayer();
 		RollDices();
+	}
+
+	private void Update()
+	{
+		if(Input.GetKeyDown(KeyCode.A))
+		{
+			GameManager.Instance.CreateEndScreen();
+		}
 	}
 
 	private void CreatePlayer()
@@ -75,7 +84,7 @@ public class GUI_RoundManager : MonoBehaviour
 	{
 		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.Dices)
 		{
-			if (!item.HasModifier(DiceModifier.Saved))
+			if (!item.HasModifier(DiceModifier.Saved) && !item.HasModifier(DiceModifier.Used))
 			{
 				GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _diceAnchor);
 				_diceNumbers.Add(instance);
