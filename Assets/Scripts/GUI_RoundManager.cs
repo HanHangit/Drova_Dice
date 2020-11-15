@@ -36,17 +36,15 @@ public class GUI_RoundManager : MonoBehaviour
 	{
 
 		GameManager.Instance.GetCurrentGame().ActionEndedEvent += ActionEndedListener;
+		GameManager.Instance.GetCurrentGame().GameEndedEvent += GameEndedListener;
 		_playSound.PlaySound();
 		CreatePlayer();
 		RollDices();
 	}
 
-	private void Update()
+	private void GameEndedListener(DiceGame.GameEndedEventArgs args)
 	{
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-			GameManager.Instance.CreateEndScreen();
-		}
+		GameManager.Instance.CreateEndScreen(args.Winner);
 	}
 
 	private void CreatePlayer()
@@ -88,7 +86,7 @@ public class GUI_RoundManager : MonoBehaviour
 
 	public void RollDices()
 	{
-		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.GetActiveDices())
+		foreach (var item in GameManager.Instance.GetCurrentGame().CurrentBoard.GetBoardDices())
 		{
 
 				GUI_DiceNumber instance = Instantiate(_diceNumberPrefab, _diceAnchor);

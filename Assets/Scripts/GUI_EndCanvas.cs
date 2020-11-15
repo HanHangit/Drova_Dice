@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DrovaDiceLogic.BoardLogic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -16,6 +17,19 @@ public class GUI_EndCanvas : MonoBehaviour
 	private Button _restartButton = default;
 	[SerializeField]
 	private string _restartSceneName = "";
+
+	public void Init(Player player)
+	{
+		if (player.PlayerStats.ID == 0)
+		{
+			_winMessageText.gameObject.SetActive(true);
+		}
+		else
+		{
+			_loseMessageText.gameObject.SetActive(true);
+		}
+	}
+
 	private void Start()
 	{
 		_restartButton.onClick.AddListener(RestartButtonClickedListener);

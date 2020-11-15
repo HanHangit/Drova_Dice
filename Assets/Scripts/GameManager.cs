@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using DrovaDiceLogic;
+using DrovaDiceLogic.BoardLogic;
 using DrovaDiceLogic.DiceGameSettings;
 using DrovaDiceLogic.Moves;
 using UnityEditor;
@@ -59,8 +60,10 @@ public class GameManager : MonoBehaviour
 	    }
     }
 
-    public void CreateEndScreen()
+    public void CreateEndScreen(Player player)
     {
-	    Instantiate(_endCanvasPrefab);
+	    var instance = Instantiate(_endCanvasPrefab);
+
+        instance.Init(player);
     }
 }
