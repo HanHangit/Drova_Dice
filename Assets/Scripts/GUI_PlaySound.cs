@@ -18,8 +18,10 @@ public class GUI_PlaySound : MonoBehaviour
 
 	public void PlaySound()
 	{
-		var sound = UnityEngine.Random.Range(0, _audioClips.Count - 1);
-		GameManager.Instance.PlayAudioSound(_audioClips[sound]);
+		if (_audioClips.Count > 0)
+		{
+			var sound = UnityEngine.Random.Range(0, _audioClips.Count - 1);
+			GameManager.Instance.PlayAudioSound(_audioClips[sound]);
+		}
 	}
-
 }

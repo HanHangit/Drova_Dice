@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
 {
-	public Player _currentPlayer = default;
+	private Player _currentPlayer = default;
 	[SerializeField]
 	private Image _feedbackObj = default;
 
@@ -66,7 +66,7 @@ public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 
 	public void OnPointerClick(PointerEventData eventData)
 	{
-		GameManager.Instance.ExecuteAction(new PlayAction());
+		GameManager.Instance.ExecuteAction(new PlayAction(_currentPlayer.PlayerStats.ID));
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
