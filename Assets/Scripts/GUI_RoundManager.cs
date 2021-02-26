@@ -58,6 +58,10 @@ public class GUI_RoundManager : MonoBehaviour
 				var instance = Instantiate(_playerPrefab, _playerAnchors[i]);
 				instance.Init(item);
 				_playersList.Add(instance);
+				if (i == 1)
+				{
+					instance.SetBackground(new Vector3(1,-1, 1));
+				}
 			}
 		}
 	}

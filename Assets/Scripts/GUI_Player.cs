@@ -17,6 +17,9 @@ public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 	private Image _feedbackObj = default;
 
 	[SerializeField]
+	private Transform _background = default;
+
+	[SerializeField]
 	private List<GUI_PlayerBhvr> _bhvrs = new List<GUI_PlayerBhvr>();
 
 	public void Init(Player player)
@@ -25,6 +28,11 @@ public class GUI_Player : MonoBehaviour, IPointerEnterHandler, IPointerClickHand
 
 		InitBhvrs(player);
 		ActivateFeedbackImage(GameManager.Instance.GetCurrentGame().CurrentBoard.CurrentPlayer);
+	}
+
+	public void SetBackground(Vector3 scale)
+	{
+		_background.localScale = scale;
 	}
 
 	private void Awake()

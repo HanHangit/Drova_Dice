@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b551637b2bad1d4089f1fe6fd45e4bc, type: 3}
+  m_Name: Faces
+  m_EditorClassIdentifier: 
+  _sprites:
+  - {fileID: 21300000, guid: 1afc3ca831c1e7a4fb2248255cb17a97, type: 3}
+  - {fileID: 21300000, guid: 840e38d09a0bfa74e91ee96fe3813649, type: 3}
+  - {fileID: 21300000, guid: 552fc5af8948f534b9fdeb60234f7ffb, type: 3}
+  - {fileID: 21300000, guid: 44ae4496224515942913e78a9a933280, type: 3}
+  - {fileID: 21300000, guid: 401755c720ad8094ead65a07784afc96, type: 3}
+  - {fileID: 21300000, guid: 791c56ae6c7e64b43be7914c2a4cade9, type: 3}
+  - {fileID: 21300000, guid: 42f9518096c48a147be7d56f7eadf054, type: 3}
